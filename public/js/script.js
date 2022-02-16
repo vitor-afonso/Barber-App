@@ -9,20 +9,24 @@ document.addEventListener(
 
 function init() {
 
+  //To add the ability to add, edit, and delete events
+  //this defines the format the dates will take while going back to the server.
+  scheduler.config.xml_date="%Y-%m-%d %H:%i";
+
   scheduler.config.first_hour = 9;
   scheduler.config.last_hour = 19;
-  scheduler.config.xml_date = "%Y-%m-%d %H:%i";
   scheduler.init("scheduler_here", new Date(), "week");
-  // enables the dynamic loading
-  scheduler.setLoadMode("day");
-
-  // load data from backend
+  
+  // defines how to parse dates from the incoming data. dates are stored as timestamps and we can convert them into date objects through Date constructor
+  scheduler.templates.xml_date = function(value){ return new Date(value); };
   scheduler.load("/data", "json");
-  // connect backend to scheduler
+
+  
+  //initializes dataprocessor and switches it to the mode of simple POST sending.
   var dp = new dataProcessor("/data");
-  // set data exchange mode
-  dp.init(scheduler);
-  dp.setTransactionMode("POST", false);
+    dp.init(scheduler);
+    dp.setTransactionMode("POST", false);
+
 }
 
 
