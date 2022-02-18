@@ -1,14 +1,23 @@
-<form action="/auth/signup" method="POST">
-   <label> Username
-      <input type="text" name="username">
-   </label>
-   <label> Password
-      <input type="password" name="password">
-   </label>
 
-   <button type="submit">Submit</button>
-</form>
+<div id="signup-container">
 
-{{#if errorMessage}}
-   {{errorMessage}}
-{{/if}}
+   <form action="/auth/signup" method="POST">
+      <label> Username
+         <input type="text" name="username">
+      </label>
+      <label> Password
+         <input type="password" name="password">
+      </label>
+      <!-- Check with Carla hot to check if pass is correct -->
+      <label> Confirm password
+         <input type="password" name="password">
+      </label>
+
+      <button type="submit">Submit</button>
+   </form>
+
+   {{#if errorMessage}}
+      {{errorMessage}}
+   {{/if}}
+
+</div>
