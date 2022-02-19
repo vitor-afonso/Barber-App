@@ -23,7 +23,11 @@ const userSchema = new Schema(
       required: true
     },
     events:  [{ type: Schema.Types.ObjectId, ref: "Event" }],
-    reviews:  [{ type: Schema.Types.ObjectId, ref: "Review" }]
+    reviews:  [{ type: Schema.Types.ObjectId, ref: "Review" }],
+    imageUrl: {
+      type: String,
+      default: '/../public/images/default-user-profile.jpeg'
+    }
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

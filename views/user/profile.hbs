@@ -1,0 +1,46 @@
+<div id="profile-container">
+  <header>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/booking">Booking</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+  <h1>Profile page</h1>
+
+  <section id="profile-top">
+    <div>
+
+      <div><b>Username:</b> <span>{{user.username}}</span></div>
+      <div><b>Email:</b> <span>{{user.email}}</span></div>
+      <div><b>Password:</b> <span>********</span></div>
+      <div><b>Contact</b> <span>{{user.contact}}</span></div>
+
+    </div>
+    <div>
+      <img src="{{user.imageUrl}}" alt="profile image" width="200" />
+    </div>
+  </section>
+
+    {{#if user.events}}
+  <section id="profile-mid">
+
+      <h3>Booking requests</h3>
+      <div>
+          {{#each user.events}}
+          <div>
+              <b>Date:</b> <span>{{this.startDate}}</span> 
+            <form action="#" method="post"> 
+                <button type="submit">Edit</button>
+            </form>
+            <form action="#" method="post"> 
+                <button type="submit">Cancel</button>
+            </form>
+          </div>
+          <div><b>Service:</b> <span>{{this.service}}</span></div>
+          {{/each}}
+      </div>
+
+  </section>
+    {{/if}}
+</div>

@@ -61,6 +61,4 @@ router.post("/booking", (req, res, next) => {
     );
 });
 
-/******************** B O O K I N G *********************/
-
 module.exports = router;
