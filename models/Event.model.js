@@ -17,11 +17,10 @@ const eventSchema = new Schema(
       type: Date,
       required: true,
     },
+    contact: Number,
     message: {
       type: String,
     },
-    contact: Number,
-
     authorID: { type: Schema.Types.ObjectId, ref: "User" },
 
     reqStatus: {

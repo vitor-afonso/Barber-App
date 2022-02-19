@@ -1,6 +1,6 @@
 
 <div id="signup-container">
-
+   <h1>Signup page</h1>
    <form action="/signup" method="POST">
       <label> Username
          <input type="text" name="username">
@@ -15,7 +15,7 @@
    </form>
 
    {{#if errorMessage}}
-      {{errorMessage}}
-   {{/if}}
+    <p>{{errorMessage}}</p>
+  {{/if}}
 
 </div>

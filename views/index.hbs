@@ -1,10 +1,27 @@
-<h1>{{title}} 🚀</h1>
-<p>Welcome Ironhacker!</p>
-{{#if user}}
-  <a href="/booking">Booking</a>
-  <a href="/logout">Logout</a>
-{{else}}
-  <a href="/signup">Signup</a>
-  <a href="/login">Login</a>
-  <a href="/booking">Booking</a>
-{{/if}}
+<header>
+  <nav>
+    {{#if user}}
+      <a href="/logout">Logout</a>
+    {{else}}
+      <a href="/">Home</a>
+      <a href="/signup">Signup</a>
+      <a href="/login">Login</a>
+    {{/if}}
+
+  </nav>
+</header>
+<div>
+  <h1>{{title}} 🚀</h1>
+
+  {{#if user}}
+    <p>Welcome {{user.username}}!</p>
+  {{/if}}
+
+  <button>
+    <a href="/booking">Request booking</a>
+  </button>
+
+  {{#if bookingConfirmation}}
+    <p>{{bookingConfirmation}}</p>
+  {{/if}}
+</div>
