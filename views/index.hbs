@@ -1,5 +1,10 @@
 <h1>{{title}} 🚀</h1>
 <p>Welcome Ironhacker!</p>
-
-
-
+{{#if user}}
+  <a href="/booking">Booking</a>
+  <a href="/logout">Logout</a>
+{{else}}
+  <a href="/signup">Signup</a>
+  <a href="/login">Login</a>
+  <a href="/booking">Booking</a>
+{{/if}}

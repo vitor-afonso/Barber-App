@@ -6,14 +6,24 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      unique: true 
+      required: true
     },
     email: {
       type: String,
-      unique: true 
+      unique: true,
+      required: true
     },
-    password: String,
-    events:  [{ type: Schema.Types.ObjectId, ref: "Event" }]
+    role: {
+      type: String,
+      enum:['Admin', 'User'],
+      default: 'User'
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    events:  [{ type: Schema.Types.ObjectId, ref: "Event" }],
+    reviews:  [{ type: Schema.Types.ObjectId, ref: "Review" }]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

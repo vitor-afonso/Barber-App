@@ -1,0 +1,77 @@
+<h1>{{title}} 🚀</h1>
+<p>Booking page!</p>
+
+<div>
+
+  <form action="/booking" method="post">
+
+    <h2>Select service</h2>
+<label>
+    <label>
+      Haircut - $60
+      <input type="checkbox" id="service" name="service" value="haircut+60" />
+    </label>
+    <br />
+    <label>
+      Beard - $45
+      <input type="checkbox" id="service" name="service" value="beard+45" />
+    </label>
+    <br />
+    <label>
+      Haircut and Beard - $90
+      <input
+        type="checkbox"
+        id="service"
+        name="service"
+        value="Haircut&Beard+90"
+      />
+    </label>
+    <br />
+    <label>
+      Haircut and Color $100
+      <input
+        type="checkbox"
+        id="service"
+        name="service"
+        value="Haircut&color+120"
+      />
+    </label>
+    <br />
+    <label>
+      color - $60
+      <input type="checkbox" id="service" name="service" value="color+60" />
+    </label>
+    
+    <br />
+
+    <h2>Select day and time</h2>
+
+    <label>Select day:
+      <input type="date" name="date" />
+    </label>
+    <br />
+    <label>Select time:
+      <input
+        type="time"
+        name="time"
+        value="09:00:00"
+        min="09:00:00"
+        max="19:00:00"
+      />
+    </label>
+    <br />
+
+    <h2>Contact</h2>
+
+    <label>Phone number:
+      <input type="number" name="contact" />
+    </label>
+    <br />
+    <br />
+    <input type="submit" value="Request booking" />
+
+  </form>
+  {{#if errorMessage}}
+    {{errorMessage}}
+  {{/if}}
+</div>
