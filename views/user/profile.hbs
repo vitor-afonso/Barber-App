@@ -21,7 +21,7 @@
     <div>
       <img src="{{user.imageUrl}}" alt="profile image" width="150" />
 
-      <form action="#" method="post">
+      <form action="/profile/{{user._id}}/edit" method="post">
         <button type="submit">Edit profile</button>
       </form>
     </div>
@@ -36,12 +36,15 @@
           {{#each pendingBookings}}
             <div>
               <div><b>Service:</b> <span>{{this.service}}</span></div>
-              <div> <b>Date:</b> <span>{{this.startDate}}</span></div>
+              <div>
+                <b>Date:</b>
+                <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
+              <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
               <div> <b>Status:</b> <span>{{this.reqStatus}}</span></div>
 
               <div>
-                <a href="/profile/{{user._id}}/booking/edit">Edit</a>
-                <a href="/profile/{{user._id}}/booking/delete">Cancel</a>
+                <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
+                <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
               </div>
             </div>
             <br />
@@ -56,12 +59,15 @@
           {{#each confirmedBookings}}
             <div>
               <div><b>Service:</b> <span>{{this.service}}</span></div>
-              <div> <b>Date:</b> <span>{{this.startDate}}</span></div>
+              <div>
+                <b>Date:</b>
+                <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
+              <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
               <div> <b>Status:</b> <span>{{this.reqStatus}}</span></div>
 
               <div>
-                <a href="/profile/{{user._id}}/booking/edit">Edit</a>
-                <a href="/profile/{{user._id}}/booking/delete">Cancel</a>
+                <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
+                <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
               </div>
             </div>
             <br />
@@ -74,14 +80,17 @@
 
         <h3>Booking history</h3>
         <div>
-          {{#each previousBookings}}
-            <div>
-              <div><b>Service:</b> <span>{{this.service}}</span></div>
-              <div> <b>Date:</b> <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
+          <div>
+            {{#each previousBookings}}
+              <div><b>Service:</b> <span>{{service}}</span></div>
+              <div>
+                <b>Date:</b>
+                <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
               <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
-            </div>
-            <br />
-          {{/each}}
+              <br>
+            {{/each}}
+          </div>
+          <br />
         </div>
 
       {{/if}}

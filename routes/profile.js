@@ -5,6 +5,23 @@ const User = require("../models/User.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
+function createUpdatedEvents(event) {
+  let bookingInfo = {};
+  bookingInfo.service = event.service;
+  bookingInfo.reqStatus = event.reqStatus;
+  bookingInfo.eventYear = event.startDate.getFullYear();
+  bookingInfo.eventMonth = event.startDate.getMonth() + 1;
+  bookingInfo.eventDay = event.startDate.getDate();
+  bookingInfo.eventHour = event.startDate.getHours();
+  //to add a 0 when the minutes is only one digit
+  if (event.startDate.getMinutes() <= 9) {
+    bookingInfo.eventMin = `${0}${event.startDate.getMinutes()}`;
+  } else {
+    bookingInfo.eventMin = event.startDate.getMinutes();
+  }
+  return bookingInfo;
+}
+
 /******************** P R O F I L E *********************/
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
@@ -15,47 +32,36 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
   let previousBookings = [];
   let todaysDate = new Date();
 
-  let eventYear;
-  let eventMonth;
-  let eventDay;
-  let eventHour;
-  let eventMin;
-
   User.findById(myUserID)
     .populate("events")
     .then((userFromDB) => {
       userFromDB.events.forEach((event) => {
-        
+      
         if (event.startDate.getTime() < todaysDate.getTime()) {
-          previousBookings.push(event);
+          previousBookings.push(createUpdatedEvents(event));
         }
         if (
           event.reqStatus === "Pending" &&
           event.startDate.getTime() >= todaysDate.getTime()
         ) {
-          pendingBookings.push(event);
+          pendingBookings.push(createUpdatedEvents(event));
         }
         if (
           event.reqStatus === "Confirmed" &&
           event.startDate.getTime() >= todaysDate.getTime()
         ) {
-          confirmedBookings.push(event);
+          confirmedBookings.push(createUpdatedEvents(event));
         }
 
-        eventYear = event.startDate.getFullYear();
-        eventMonth = event.startDate.getMonth() + 1;
-        eventDay = event.startDate.getDate();
-        eventHour = event.startDate.getHours();
-        eventMin = event.startDate.getMinutes();
-        if (eventMin <= 9) {
-          eventMin = `0${eventMin}`;
-        }
-        
       });
-      console.log( 'event minutes =>',eventMin);
-      
+
       //console.log("User from DB =>", userFromDB);
-      res.render("user/profile", { user: userFromDB, pendingBookings, confirmedBookings, previousBookings, eventYear, eventMonth, eventDay, eventHour, eventMin});
+      res.render("user/profile", {
+        user: userFromDB,
+        pendingBookings,
+        confirmedBookings,
+        previousBookings,
+      });
     })
     .catch((err) => {
       console.log("error with populate =>", err);
