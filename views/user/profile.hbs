@@ -44,9 +44,11 @@
                 <a href="/profile/{{user._id}}/booking/delete">Cancel</a>
               </div>
             </div>
+            <br />
           {{/each}}
         </div>
       {{/if}}
+      <hr />
 
       {{#if confirmedBookings}}
         <h3>Confirmed bookings</h3>
@@ -62,8 +64,10 @@
                 <a href="/profile/{{user._id}}/booking/delete">Cancel</a>
               </div>
             </div>
+            <br />
           {{/each}}
         </div>
+        <hr />
       {{/if}}
 
       {{#if previousBookings}}
@@ -73,13 +77,15 @@
           {{#each previousBookings}}
             <div>
               <div><b>Service:</b> <span>{{this.service}}</span></div>
-              <div> <b>Date:</b> <span>{{this.startDate}}</span></div>
-              <div> <b>Status:</b> <span>{{this.reqStatus}}</span></div>
+              <div> <b>Date:</b> <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
+              <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
             </div>
+            <br />
           {{/each}}
         </div>
 
       {{/if}}
+      <hr />
     </section>
   {{/if}}
 

@@ -13,7 +13,7 @@ router.get("/booking", isLoggedIn, (req, res, next) => {
 
 router.post("/booking", (req, res, next) => {
   const { date, time, contact, message } = req.body;
-  let minutes = 0;
+  let minutes = 01;
   let service = req.body.service;
   const startDate = new Date(`${date}T${time}`);
   let endDate;

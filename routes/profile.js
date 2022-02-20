@@ -15,25 +15,47 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
   let previousBookings = [];
   let todaysDate = new Date();
 
+  let eventYear;
+  let eventMonth;
+  let eventDay;
+  let eventHour;
+  let eventMin;
+
   User.findById(myUserID)
     .populate("events")
     .then((userFromDB) => {
       userFromDB.events.forEach((event) => {
+        
         if (event.startDate.getTime() < todaysDate.getTime()) {
           previousBookings.push(event);
         }
-        if (event.reqStatus === 'Pending' && event.startDate.getTime() >= todaysDate.getTime()) {
+        if (
+          event.reqStatus === "Pending" &&
+          event.startDate.getTime() >= todaysDate.getTime()
+        ) {
           pendingBookings.push(event);
         }
-        if (event.reqStatus === 'Confirmed' && event.startDate.getTime() >= todaysDate.getTime()) {
+        if (
+          event.reqStatus === "Confirmed" &&
+          event.startDate.getTime() >= todaysDate.getTime()
+        ) {
           confirmedBookings.push(event);
+        }
+
+        eventYear = event.startDate.getFullYear();
+        eventMonth = event.startDate.getMonth() + 1;
+        eventDay = event.startDate.getDate();
+        eventHour = event.startDate.getHours();
+        eventMin = event.startDate.getMinutes();
+        if (eventMin <= 9) {
+          eventMin = `0${eventMin}`;
         }
         
       });
-
-      //console.log('pending bookings =>', pendingBookings);
-      //console.log("User fom DB with populate", userFromDB);
-      res.render("user/profile", { user: userFromDB, pendingBookings, confirmedBookings, previousBookings });
+      console.log( 'event minutes =>',eventMin);
+      
+      //console.log("User from DB =>", userFromDB);
+      res.render("user/profile", { user: userFromDB, pendingBookings, confirmedBookings, previousBookings, eventYear, eventMonth, eventDay, eventHour, eventMin});
     })
     .catch((err) => {
       console.log("error with populate =>", err);
