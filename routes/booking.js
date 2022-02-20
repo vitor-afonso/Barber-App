@@ -22,6 +22,7 @@ router.post("/booking", (req, res, next) => {
   if (service) {
     //makes sure service is an array so that we can use map on it
     if (typeof service === "string") service = [service];
+    
     minutes = service
       //split the element(string) to an array of 2 strings
       .map((element) => element.split("+"))
@@ -33,14 +34,19 @@ router.post("/booking", (req, res, next) => {
       .reduce((a, b) => a + b);
 
     endDate = new Date(startDate.getTime() + minutes * 60000);
+
+    service = service.map(element => element.split('+')).map(element => element[0]);
     // console.log("minutes :>> ", minutes);
     // console.log("req.body :>> ", req.body);
     // console.log("endDate :>> ", endDate);
+    
   } else {
     res.status(400).render("user/booking-form", {
       errorMessage: "Please select a service.",
     });
   }
+  
+  console.log(service);
   Event.create({
     service,
     startDate,

@@ -25,8 +25,8 @@ const eventSchema = new Schema(
 
     reqStatus: {
       type: String,
-      enum: ["pending", "confirmed", "rejected"],
-      default: "pending",
+      enum: ["Pending", "Confirmed", "Rejected"],
+      default: "Pending"
     },
   },
   {
