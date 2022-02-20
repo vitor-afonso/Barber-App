@@ -4,7 +4,12 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+/*** to hide arrows on input type number **/
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 a {
   color: #00b7ff;
 }
@@ -13,6 +18,3 @@ h1 {
   color: 15px;
 }
 
-#cal-container {
-  height: 550px;
-}

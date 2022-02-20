@@ -44,8 +44,9 @@
               <div> <b>Status:</b> <span>{{this.reqStatus}}</span></div>
 
               <div>
-                <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
-                <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
+                <a href="#">Reply</a>
+                <a href="#">Confirm</a>
+                <a href="#">Reject</a>
               </div>
             </div>
             <br />
@@ -75,25 +76,6 @@
           {{/each}}
         </div>
         <hr />
-      {{/if}}
-
-      {{#if previousBookings}}
-
-        <h3>Booking history</h3>
-        <div>
-          <div>
-            {{#each previousBookings}}
-              <div><b>Service:</b> <span>{{service}}</span></div>
-              <div>
-                <b>Date:</b>
-                <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
-              <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
-              <br>
-            {{/each}}
-          </div>
-          <br />
-        </div>
-
       {{/if}}
       <hr />
     </section>

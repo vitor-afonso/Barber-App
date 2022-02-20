@@ -18,6 +18,7 @@ router.post("/booking", (req, res, next) => {
   const startDate = new Date(`${date}T${time}`);
   let endDate;
   const authorID = req.session.user._id;
+  let todaysDate = new Date();
 
   if (service) {
     //makes sure service is an array so that we can use map on it
@@ -45,8 +46,13 @@ router.post("/booking", (req, res, next) => {
       errorMessage: "Please select a service.",
     });
   }
+
+  if (startDate.getTime() < todaysDate.getTime()) {
+    return res.status(400).render("user/booking-form", {
+      errorMessage: "Please select a valid date.",
+    });
+  }
   
-  console.log(service);
   Event.create({
     service,
     startDate,
