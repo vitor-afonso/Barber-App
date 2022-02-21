@@ -26,7 +26,7 @@ const userSchema = new Schema(
     reviews:  [{ type: Schema.Types.ObjectId, ref: "Review" }],
     imageUrl: {
       type: String,
-      default: '/../public/images/default-user-profile.jpeg'
+      default: '/images/default-user-profile.jpeg'
     }
   },
   {

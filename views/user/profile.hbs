@@ -14,24 +14,22 @@
       <div><b>Username:</b> <span>{{user.username}}</span></div>
       <div><b>Email:</b> <span>{{user.email}}</span></div>
       <div><b>Password:</b> <span>********</span></div>
-      <div><b>Contact</b> <span>{{user.contact}}</span></div>
 
     </div>
-
+    <br>
     <div>
       <img src="{{user.imageUrl}}" alt="profile image" width="150" />
-
-      <form action="/profile/{{user._id}}/edit" method="post">
-        <button type="submit">Edit profile</button>
-      </form>
+      <br>
+      <a href="/profile/{{user._id}}/edit">Edit profile</a>
     </div>
   </section>
 
   {{#if user.events}}
-    <hr />
+    
     <section class="profile-mid">
 
       {{#if pendingBookings}}
+        <hr />
         <h3>Pending bookings</h3>
         <div>
           {{#each pendingBookings}}
@@ -43,13 +41,13 @@
               <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
               <div> <b>Status:</b> <span>{{this.reqStatus}}</span></div>
 
-              <div>
-                <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
-                <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
-              </div>
             </div>
             <br />
           {{/each}}
+          <div>
+            <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
+            <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
+          </div>
         </div>
       {{/if}}
       <hr />
@@ -59,20 +57,20 @@
         <div>
           {{#each confirmedBookings}}
             <div>
-              <div><b>Service:</b> <span>{{this.service}}</span></div>
+              <div><b>Service:</b> <span>{{service}}</span></div>
               <div>
                 <b>Date:</b>
                 <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
               <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
-              <div> <b>Status:</b> <span>{{this.reqStatus}}</span></div>
+              <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
 
-              <div>
-                <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
-                <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
-              </div>
             </div>
             <br />
           {{/each}}
+          <div>
+            <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
+            <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
+          </div>
         </div>
         <hr />
       {{/if}}
@@ -93,9 +91,8 @@
           </div>
           <br />
         </div>
-
+        <hr />
       {{/if}}
-      <hr />
     </section>
   {{/if}}
 

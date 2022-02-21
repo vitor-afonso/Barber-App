@@ -4,11 +4,12 @@ const Event = require("../models/Event.model");
 const User = require("../models/User.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const session = require("express-session");
 
 /******************** B O O K I N G *********************/
 
 router.get("/booking", isLoggedIn, (req, res, next) => {
-  res.render("user/booking-form");
+  res.render("user/booking-form", { user: req.session.user });
 });
 
 router.post("/booking", (req, res, next) => {
@@ -17,13 +18,14 @@ router.post("/booking", (req, res, next) => {
   let service = req.body.service;
   const startDate = new Date(`${date}T${time}`);
   let endDate;
+  const author = req.session.user;
   const authorID = req.session.user._id;
   let todaysDate = new Date();
 
   if (service) {
     //makes sure service is an array so that we can use map on it
     if (typeof service === "string") service = [service];
-    
+
     minutes = service
       //split the element(string) to an array of 2 strings
       .map((element) => element.split("+"))
@@ -36,11 +38,12 @@ router.post("/booking", (req, res, next) => {
 
     endDate = new Date(startDate.getTime() + minutes * 60000);
 
-    service = service.map(element => element.split('+')).map(element => element[0]);
+    service = service
+      .map((element) => element.split("+"))
+      .map((element) => element[0]);
     // console.log("minutes :>> ", minutes);
     // console.log("req.body :>> ", req.body);
     // console.log("endDate :>> ", endDate);
-    
   } else {
     res.status(400).render("user/booking-form", {
       errorMessage: "Please select a service.",
@@ -52,21 +55,25 @@ router.post("/booking", (req, res, next) => {
       errorMessage: "Please select a valid date.",
     });
   }
-  
+
   Event.create({
     service,
     startDate,
     endDate,
     contact,
     message,
-    authorID
+    authorID,
   })
     .then((eventFromDB) => {
-
-       return User.findByIdAndUpdate(authorID, {$push: {events: eventFromDB._id}});
+      return User.findByIdAndUpdate(authorID, {
+        $push: { events: eventFromDB._id },
+      });
     })
-    .then(()=> {
-        res.render("index", {bookingConfirmation: 'Booking request successfully sent.', user: req.session.user});
+    .then(() => {
+      res.render("index", {
+        bookingConfirmation: "Booking request successfully sent.",
+        user: author,
+      });
     })
     .catch((err) =>
       console.log("Something went wrong while creating event =>", err)

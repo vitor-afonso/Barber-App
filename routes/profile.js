@@ -7,6 +7,7 @@ const isUser = require("../middleware/isUser");
 
 function createUpdatedEvents(event) {
   let bookingInfo = {};
+  bookingInfo.username = event.authorID.username;
   bookingInfo.service = event.service;
   bookingInfo.reqStatus = event.reqStatus;
   bookingInfo.contact = event.contact;
@@ -27,7 +28,6 @@ function createUpdatedEvents(event) {
 /******************** P R O F I L E *********************/
 
 router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
-  const myUser = req.session.user;
   const myUserID = req.session.user._id;
   let confirmedBookings = [];
   let pendingBookings = [];
@@ -38,7 +38,6 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
     .populate("events")
     .then((userFromDB) => {
       userFromDB.events.forEach((event) => {
-      
         if (event.startDate.getTime() < todaysDate.getTime()) {
           previousBookings.push(createUpdatedEvents(event));
         }
@@ -54,11 +53,10 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
         ) {
           confirmedBookings.push(createUpdatedEvents(event));
         }
-
       });
 
       //console.log("User from DB =>", userFromDB);
-      
+
       res.render("user/profile", {
         user: userFromDB,
         pendingBookings,
@@ -71,11 +69,10 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
     });
 });
 
-
 /******************** A D M I N *********************/
 
 router.get("/profile/admin", isLoggedIn, (req, res, next) => {
-  const myUser = req.session.user;
+  const adminUser = req.session.user;
   let confirmedBookings = [];
   let pendingBookings = [];
   let previousBookings = [];
@@ -83,10 +80,9 @@ router.get("/profile/admin", isLoggedIn, (req, res, next) => {
 
   Event.find()
     .populate("authorID")
-    .then((DBevents) => {
-      console.log('Events from DB =>',DBevents);
-      /* DBevents.author.forEach((event) => {
-      
+    .then((eventsFromDB) => {
+      //console.log('Events from DB =>',eventsFromDB);
+      eventsFromDB.forEach((event) => {
         if (event.startDate.getTime() < todaysDate.getTime()) {
           previousBookings.push(createUpdatedEvents(event));
         }
@@ -102,21 +98,41 @@ router.get("/profile/admin", isLoggedIn, (req, res, next) => {
         ) {
           confirmedBookings.push(createUpdatedEvents(event));
         }
+      });
 
-      }); */
+      //console.log("confirmed bookings =>", confirmedBookings);
 
-      //console.log("User from DB =>", userFromDB);
-      
-      /* res.render("user/profile-admin", {
-        user: userFromDB,
+      res.render("user/profile-admin", {
+        user: adminUser,
+        events: eventsFromDB,
         pendingBookings,
         confirmedBookings,
         previousBookings,
-      }); */
+      });
     })
     .catch((err) => {
       console.log("error with populate =>", err);
     });
 });
 
+/******************** P R O F I L E   E D I T *********************/
+
+router.get("/profile/:id/edit", isLoggedIn, isUser, (req, res, next) => {
+  const userID = req.params.id;
+
+  User.findById(userID)
+    .then((userFromDB) => {
+      console.log("User from DB to edit =>", userFromDB);
+      res.render("user/profile-edit", { user: userFromDB });
+    })
+    .catch((err) =>
+      console.log("Something went wrong while getting user from DB =>", err)
+    );
+});
+
+router.post("/profile/:id/edit", isLoggedIn, isUser, (req, res, next) => {
+
+
+
+});
 module.exports = router;

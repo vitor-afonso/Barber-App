@@ -20,6 +20,7 @@ const eventSchema = new Schema(
     contact: Number,
     message: {
       type: String,
+      default: undefined
     },
     authorID: { type: Schema.Types.ObjectId, ref: "User" },
 

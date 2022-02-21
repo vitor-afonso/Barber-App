@@ -14,7 +14,7 @@
       <div><b>Username:</b> <span>{{user.username}}</span></div>
       <div><b>Email:</b> <span>{{user.email}}</span></div>
       <div><b>Password:</b> <span>********</span></div>
-      <div><b>Contact</b> <span>{{user.contact}}</span></div>
+      <a href="#">Reset Password</a>
 
     </div>
 
@@ -27,7 +27,7 @@
     </div>
   </section>
 
-  {{#if user.events}}
+  {{#if events}}
     <hr />
     <section class="profile-mid">
 
@@ -36,12 +36,20 @@
         <div>
           {{#each pendingBookings}}
             <div>
-              <div><b>Service:</b> <span>{{this.service}}</span></div>
+              <div><b>Name:</b> <span>{{username}}</span></div>
+              <div><b>Service:</b> <span>{{service}}</span></div>
               <div>
                 <b>Date:</b>
                 <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
               <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
-              <div> <b>Status:</b> <span>{{this.reqStatus}}</span></div>
+
+              {{#if message}}
+              <div> <b>Message:</b> <span>{{message}}</span></div>
+              {{/if}}
+              {{#if contact}}
+              <div> <b>Contact:</b> <span>{{contact}}</span></div>
+              {{/if}}
+              <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
 
               <div>
                 <a href="#">Reply</a>
@@ -60,12 +68,19 @@
         <div>
           {{#each confirmedBookings}}
             <div>
-              <div><b>Service:</b> <span>{{this.service}}</span></div>
+              <div><b>Name:</b> <span>{{username}}</span></div>
+              <div><b>Service:</b> <span>{{service}}</span></div>
               <div>
                 <b>Date:</b>
                 <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
               <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
-              <div> <b>Status:</b> <span>{{this.reqStatus}}</span></div>
+              {{#if message}}
+              <div> <b>Message:</b> <span>{{message}}</span></div>
+              {{/if}}
+              {{#if contact}}
+              <div> <b>Contact:</b> <span>{{contact}}</span></div>
+              {{/if}}
+              <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
 
               <div>
                 <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
@@ -77,7 +92,7 @@
         </div>
         <hr />
       {{/if}}
-      <hr />
+    
     </section>
   {{/if}}
 
