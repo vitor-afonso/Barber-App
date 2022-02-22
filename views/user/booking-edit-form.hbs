@@ -1,0 +1,75 @@
+<div>
+    <form action="/profile/{{user._id}}/booking/edit">
+
+        {{#each services}}
+                    
+            {{#if selectedServices}}
+                <label> {{serviceCleanName}}
+                    <input type="checkbox" selected name="service" value="{{serviceDbName}}"/>
+                </label>     
+            {{else}}
+                <input type="checkbox" name="service" value="{{serviceName}}"/>
+            {{/if}}
+                    
+        {{/each}}
+
+
+
+
+
+
+
+
+     {{#if pendingBookings}}
+        <hr />
+        <h3>Pending bookings</h3>
+        <div>
+          {{#each pendingBookings}}
+
+            <label> Service:
+                <input type="text" name="service" value="{{this.service}}">
+            </label>
+            <div>
+              <div><b>Service:</b> <span>{{this.service}}</span></div>
+              <div>
+                <b>Date:</b>
+                <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
+              <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
+              <div> <b>Status:</b> <span>{{this.reqStatus}}</span></div>
+
+            </div>
+            <br />
+          {{/each}}
+          <div>
+            <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
+            <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
+          </div>
+        </div>
+      {{/if}}
+      <hr />
+
+      {{#if confirmedBookings}}
+        <h3>Confirmed bookings</h3>
+        <div>
+          {{#each confirmedBookings}}
+            <div>
+              <div><b>Service:</b> <span>{{service}}</span></div>
+              <div>
+                <b>Date:</b>
+                <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
+              <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
+              <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
+
+            </div>
+            <br />
+          {{/each}}
+          <div>
+            <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
+            <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
+          </div>
+        </div>
+        <hr />
+      {{/if}}
+    
+    </form>
+</div>

@@ -26,24 +26,15 @@ router.post("/booking", (req, res, next) => {
     //makes sure service is an array so that we can use map on it
     if (typeof service === "string") service = [service];
 
+    //to get the minutes of the service and define endDate of event
     minutes = service
-      //split the element(string) to an array of 2 strings
       .map((element) => element.split("+"))
-      //retrieve the minutes from the each element of the created array
       .map((element) => element[1])
-      //converts the string or strings received to number
       .map(Number)
-      //sums all items and returns the sum
       .reduce((a, b) => a + b);
 
     endDate = new Date(startDate.getTime() + minutes * 60000);
 
-    service = service
-      .map((element) => element.split("+"))
-      .map((element) => element[0]);
-    // console.log("minutes :>> ", minutes);
-    // console.log("req.body :>> ", req.body);
-    // console.log("endDate :>> ", endDate);
   } else {
     res.status(400).render("user/booking-form", {
       errorMessage: "Please select a service.",

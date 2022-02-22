@@ -20,10 +20,8 @@
 
     <div>
       <img src="{{user.imageUrl}}" alt="profile image" width="150" />
-
-      <form action="/profile/{{user._id}}/edit" method="post">
-        <button type="submit">Edit profile</button>
-      </form>
+      <br>
+      <a href="/profile/{{user._id}}/edit">Edit profile</a>
     </div>
   </section>
 
