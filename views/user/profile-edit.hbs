@@ -8,31 +8,33 @@
   </header>
   <h2>Edit profile</h2>
   <div class="profile-top">
-    <form action="/profile/{{user._id}}/edit" method="post">
-
-      <label>
-        Name:
-        <input type="text" name="username" value="{{user.username}}" />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input type="email" name="email" value="{{user.email}}" />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input type="password" name="password" value="********" />
-      </label>
+    <form action="/profile/{{user._id}}/edit" method="post" enctype="multipart/form-data">
+      <div>
+        <label>
+          Name:
+          <input type="text" name="username" value="{{user.username}}" />
+        </label>
+        <br />
+        <label>
+          Email:
+          <input type="email" name="email" value="{{user.email}}" />
+        </label>
+        <br />
+        <label>
+          Password:
+          <input type="password" name="password" value="********" />
+        </label>
+      </div>
+      <div>
+        <img src="{{user.imageUrl}}" alt="Profile image" width="150" />
+        <br />
+        <input type="text" name="existingImage" value="{{user.imageUrl}}" hidden>
+        <input type="file" name="profile-image">
+      </div>
       <br />
       <button type="submit">Update</button>
     </form>
 
-    <div>
-      <img src="{{user.imageUrl}}" alt="Profile image" width="150" />
-      <br />
-      <button type="button">upload image</button>
-    </div>
   </div>
   {{#if errorMessage}}
     <p>{{errorMessage}}</p>

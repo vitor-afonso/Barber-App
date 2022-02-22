@@ -6,6 +6,7 @@ const Event = require("../models/Event.model");
 const User = require("../models/User.model");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const isUser = require("../middleware/isUser");
+const fileUploader = require('../config/cloudinary.config');
 
 function createUpdatedEvents(event) {
   let bookingInfo = {};
@@ -132,9 +133,22 @@ router.get("/profile/:id/edit", isLoggedIn, isUser, (req, res, next) => {
     );
 });
 
-router.post("/profile/:id/edit", isLoggedIn, isUser, (req, res, next) => {
+router.post("/profile/:id/edit", isLoggedIn, isUser, fileUploader.single('profile-image'), (req, res, next) => {
   const userID = req.params.id;
-  const { username, email, password } = req.body;
+  const { username, email, password , existingImage} = req.body;
+  let profileImage = "";
+  
+
+  if (req.file !== undefined) {
+    profileImage = req.file.path;
+    console.log('new req file path =>', profileImage);
+    
+  } else {
+
+    profileImage = existingImage;
+    console.log('old req file path =>', profileImage);
+  }
+ 
 
   User.findById(userID)
     .then(userFromDB => {
@@ -159,16 +173,16 @@ router.post("/profile/:id/edit", isLoggedIn, isUser, (req, res, next) => {
             // Update user and save it in the database
             User.findByIdAndUpdate(
               userID,
-              { username: username, email: email, password: hashedPassword },
+              { username: username, email: email, password: hashedPassword, imageUrl: profileImage.path },
               { new: true }
             )
               .then((updatedUser) => {
-                console.log("Updated user with password =>", updatedUser);
+                console.log("Updated user with new password =>", updatedUser);
                 res.redirect("/profile");
               })
               .catch((err) =>
                 console.log(
-                  "Something went wrong while updating user password =>",
+                  "Something went wrong while updating user =>",
                   err
                 )
               );
@@ -176,7 +190,7 @@ router.post("/profile/:id/edit", isLoggedIn, isUser, (req, res, next) => {
       } else {
         User.findByIdAndUpdate(
           userID,
-          { username: username, email: email },
+          { username: username, email: email, imageUrl: profileImage },
           { new: true }
         )
           .then((updatedUser) => {
