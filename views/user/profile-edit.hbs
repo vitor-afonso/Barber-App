@@ -12,27 +12,29 @@
 
       <label>
         Name:
-        <input type="text" name="name" value="{{user.username}}" />
+        <input type="text" name="username" value="{{user.username}}" />
       </label>
-      <br>
+      <br />
       <label>
         Email:
         <input type="email" name="email" value="{{user.email}}" />
       </label>
-      <br>
+      <br />
       <label>
         Password:
         <input type="password" name="password" value="********" />
       </label>
-      <br>
+      <br />
       <button type="submit">Update</button>
     </form>
 
     <div>
       <img src="{{user.imageUrl}}" alt="Profile image" width="150" />
-      <br>
+      <br />
       <button type="button">upload image</button>
     </div>
   </div>
-
+  {{#if errorMessage}}
+    <p>{{errorMessage}}</p>
+  {{/if}}
 </section>

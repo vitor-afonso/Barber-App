@@ -1,5 +1,7 @@
 //jshint esversion:8
 const router = require("express").Router();
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const Event = require("../models/Event.model");
 const User = require("../models/User.model");
 const isLoggedIn = require("../middleware/isLoggedIn");
@@ -122,7 +124,7 @@ router.get("/profile/:id/edit", isLoggedIn, isUser, (req, res, next) => {
 
   User.findById(userID)
     .then((userFromDB) => {
-      console.log("User from DB to edit =>", userFromDB);
+      //console.log("User from DB to edit =>", userFromDB);
       res.render("user/profile-edit", { user: userFromDB });
     })
     .catch((err) =>
@@ -131,8 +133,72 @@ router.get("/profile/:id/edit", isLoggedIn, isUser, (req, res, next) => {
 });
 
 router.post("/profile/:id/edit", isLoggedIn, isUser, (req, res, next) => {
+  const userID = req.params.id;
+  const { username, email, password } = req.body;
 
+  User.findById(userID)
+    .then(userFromDB => {
 
+      if (email !== userFromDB.email) {
 
+        User.findOne({ email }).then((found) => {
+          // If the user is found, send the message email is taken
+          if (found) {
+            return res
+              .status(400)
+              .render("user/profile-edit", { errorMessage: "Email already taken.", user: userFromDB });
+          }
+        });
+      }
+      
+      if (password !== "********" && password !== userFromDB.password) {
+        return bcrypt
+          .genSalt(saltRounds)
+          .then((salt) => bcrypt.hash(password, salt))
+          .then((hashedPassword) => {
+            // Update user and save it in the database
+            User.findByIdAndUpdate(
+              userID,
+              { username: username, email: email, password: hashedPassword },
+              { new: true }
+            )
+              .then((updatedUser) => {
+                console.log("Updated user with password =>", updatedUser);
+                res.redirect("/profile");
+              })
+              .catch((err) =>
+                console.log(
+                  "Something went wrong while updating user password =>",
+                  err
+                )
+              );
+          });
+      } else {
+        User.findByIdAndUpdate(
+          userID,
+          { username: username, email: email },
+          { new: true }
+        )
+          .then((updatedUser) => {
+            console.log(
+              "Updated user without changing password =>",
+              updatedUser
+            );
+            res.redirect("/profile");
+          })
+          .catch((err) =>
+            console.log(
+              "Something went wrong while updating user password =>",
+              err
+            )
+          );
+      }
+    })
+    .catch((err) =>
+      console.log(
+        "Something went wrong while getting user from DB to update =>",
+        err
+      )
+    );
 });
 module.exports = router;
