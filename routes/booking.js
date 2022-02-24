@@ -9,7 +9,7 @@ const session = require("express-session");
 /******************** B O O K I N G *********************/
 
 router.get("/booking", isLoggedIn, (req, res, next) => {
-  res.render("user/booking-form", { user: req.session.user });
+  res.render("events/booking-form", { user: req.session.user });
 });
 
 router.post("/booking", (req, res, next) => {
@@ -36,7 +36,7 @@ router.post("/booking", (req, res, next) => {
     endDate = new Date(startDate.getTime() + minutes * 60000);
 
   } else {
-    res.status(400).render("user/booking-form", {
+    res.status(400).render("events/booking-form", {
       errorMessage: "Please select a service.",
     });
   }

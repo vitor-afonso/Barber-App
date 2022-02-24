@@ -39,15 +39,14 @@
                 <b>Date:</b>
                 <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
               <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
-              <div> <b>Status:</b> <span>{{this.reqStatus}}</span></div>
-
+              <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
+              <div>
+                <a href="/profile/{{id}}/booking/edit">Edit</a>
+                <a href="/profile/{{id}}/booking/delete">Cancel</a>
+              </div>
             </div>
             <br />
           {{/each}}
-          <div>
-            <a href="/profile/{{user._id}}/booking/edit">Edit</a>
-            <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
-          </div>
         </div>
       {{/if}}
       <hr />
@@ -63,14 +62,14 @@
                 <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
               <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
               <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
-
+              
+              <div>
+                <a href="/profile/{{id}}/booking/edit">Edit</a>
+                <a href="/profile/{{id}}/booking/delete">Cancel</a>
+              </div>
             </div>
             <br />
           {{/each}}
-          <div>
-            <a href="/profile/{{user._id}}/booking/edit">Edit</a>
-            <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
-          </div>
         </div>
         <hr />
       {{/if}}

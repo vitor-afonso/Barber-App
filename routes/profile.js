@@ -7,26 +7,7 @@ const User = require("../models/User.model");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const isUser = require("../middleware/isUser");
 const fileUploader = require("../config/cloudinary.config");
-
-function createUpdatedEvents(event) {
-  let bookingInfo = {};
-  bookingInfo.username = event.authorID.username;
-  bookingInfo.service = event.service;
-  bookingInfo.reqStatus = event.reqStatus;
-  bookingInfo.contact = event.contact;
-  bookingInfo.message = event.message;
-  bookingInfo.eventYear = event.startDate.getFullYear();
-  bookingInfo.eventMonth = event.startDate.getMonth() + 1;
-  bookingInfo.eventDay = event.startDate.getDate();
-  bookingInfo.eventHour = event.startDate.getHours();
-  //to add a 0 when the minutes is only one digit
-  if (event.startDate.getMinutes() <= 9) {
-    bookingInfo.eventMin = `${0}${event.startDate.getMinutes()}`;
-  } else {
-    bookingInfo.eventMin = event.startDate.getMinutes();
-  }
-  return bookingInfo;
-}
+const {createUpdatedEvents, editServiceName} = require('../utils/app.utils');
 
 /******************** P R O F I L E *********************/
 
@@ -42,9 +23,8 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
     .populate("events")
     .then((userFromDB) => {
       userFromDB.events.forEach((event) => {
-        event.service = event.service
-          .map((element) => element.split("+"))
-          .map((element) => element[0]);
+        
+        editServiceName(event);
 
         if (event.startDate.getTime() < todaysDate.getTime()) {
           previousBookings.push(createUpdatedEvents(event));
@@ -63,7 +43,7 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
       });
 
       //console.log("User from DB =>", userFromDB);
-      
+      //console.log("confirmed bookings in profile =>", confirmedBookings);
 
       res.render("user/profile", {
         user: userFromDB,
@@ -91,9 +71,8 @@ router.get("/profile/admin", isLoggedIn, (req, res, next) => {
     .then((eventsFromDB) => {
       //console.log('Events from DB =>',eventsFromDB);
       eventsFromDB.forEach((event) => {
-        event.service = event.service
-          .map((element) => element.split("+"))
-          .map((element) => element[0]);
+
+        editServiceName(event);
 
         if (event.startDate.getTime() < todaysDate.getTime()) {
           previousBookings.push(createUpdatedEvents(event));
@@ -113,7 +92,7 @@ router.get("/profile/admin", isLoggedIn, (req, res, next) => {
       });
 
       //console.log("confirmed bookings =>", confirmedBookings);
-
+      
       res.render("user/profile-admin", {
         user: adminUser,
         events: eventsFromDB,
@@ -235,13 +214,84 @@ module.exports = router;
 /******************** P R O F I L E   B O O K I N G   E D I T *********************/
 
 router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
-  const userID = req.params.id;
+  const eventID = req.params.id;
+
+  let pendingBookings = [];
+  let confirmedBookings = [];
+
+  let todaysDate = new Date();
   
-  User.findById(userID)
-  .populate("events")
-  .then(userFromDB => {
-    console.log('User from DB in booking/edit =>',userFromDB);
-    res.render('user/booking-edit-form');
+  let allServices = ['Haircut+60', 'Beard+45', 'Haircut&Beard+90', 'Haircut&Color+120', 'Color+75'];
+
+  Event.findById(eventID)
+  .then(eventFromDB => {
+    //console.log('Event from DB to edit =>', eventFromDB );
+    let selectedServices = [];
+    let allUnselectedServicesNames = [];
+    
+    if (eventFromDB.reqStatus === "Pending" && eventFromDB.startDate.getTime() >= todaysDate.getTime()) {
+      
+      for (let i = 0; i < allServices.length; i++) {
+        const element = allServices[i];
+        
+        if(eventFromDB.service.indexOf(element) !== -1){
+          selectedServices.push(allServices.splice(i,1));
+        }
+        
+      }
+
+      eventFromDB.selectedServices = selectedServices;
+      eventFromDB.unselectedServices = [...allServices]; 
+
+      editServiceName(eventFromDB);
+
+      allServices.forEach(element => {
+        element = [element];
+        allUnselectedServicesNames.push(element
+      .map((element) => element.split("+"))
+      .map((element) => element[0]));
+      });
+
+      eventFromDB.allUnselectedServicesNames = [...allUnselectedServicesNames];
+
+      
+      //console.log('event with all updated info =>',createUpdatedEvents(event));
+
+      
+      pendingBookings.push(createUpdatedEvents(eventFromDB));
+    }
+    
+    if (eventFromDB.reqStatus === "Confirmed" && eventFromDB.startDate.getTime() >= todaysDate.getTime()) {
+
+
+      for (let i = 0; i < allServices.length; i++) {
+        const element = allServices[i];
+        
+        if(eventFromDB.service.indexOf(element) !== -1){
+          selectedServices.push(allServices.splice(i,1));
+        }
+        
+      }
+
+      // here i define the properties in the updatedObject **************************
+      eventFromDB.selectedServices = selectedServices;
+      eventFromDB.unselectedServices = [...allServices]; 
+
+      editServiceName(eventFromDB);
+
+      allServices.forEach(element => {
+        element = [element];
+        allUnselectedServicesNames.push(element
+      .map((element) => element.split("+"))
+      .map((element) => element[0]));
+      });
+
+      eventFromDB.allUnselectedServicesNames = [...allUnselectedServicesNames];
+      
+      confirmedBookings.push(createUpdatedEvents(eventFromDB));
+    }
+    //console.log('confirmed booking sent to edit =>',confirmedBookings);
+    res.render('events/booking-edit-form', {pendingBookings, confirmedBookings});
   })
-  .catch(err=> console.log('Something went wrong while trying to get user from DB', err));
+  .catch(err => console.log('Something went wrong while trying to get user from DB', err));
 });

@@ -1,0 +1,52 @@
+<div>
+    <form action="/profile/{{user._id}}/booking/edit">
+       
+        {{#if pendingBookings}}   
+            {{#each pendingBookings}} 
+                {{#each selectedServices}} 
+                        <label> {{../service}}
+                            <input type="checkbox" checked name="service" value="{{this}}"/>
+                        </label> 
+                        <br>
+                {{/each}}
+
+            {{/each}}
+            
+            {{#each pendingBookings}} 
+                {{#each allUnselectedServicesNames}} 
+                        <label> {{this}}
+                            <input type="checkbox" name="service" value="{{this}}"/>
+                            
+                        </label> 
+                        <br>
+                {{/each}}
+            {{/each}}
+        {{/if}}
+
+
+        {{#if confirmedBookings}}   
+            {{#each confirmedBookings}} 
+                {{#each selectedServices}} 
+                        <label> {{../service}}
+                            <input type="checkbox" checked name="service" value="{{this}}"/>
+                        </label> 
+                        <br>
+                {{/each}}
+
+            {{/each}}
+            
+            {{#each confirmedBookings}} 
+                {{#each allUnselectedServicesNames}} 
+                        <label> {{this}}
+                            <input type="checkbox" name="service" value="{{this}}"/>
+                            
+                        </label> 
+                        <br>
+                {{/each}}
+            {{/each}}
+        {{/if}}
+
+        
+
+    </form>
+</div>
