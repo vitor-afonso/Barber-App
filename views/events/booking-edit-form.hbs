@@ -15,8 +15,8 @@
             {{#each pendingBookings}} 
                 {{#each selectedServices}} 
 
-                        <label> {{../service}}
-                            <input type="checkbox" checked name="service" value="{{this}}"/>
+                        <label> {{shortServiceName}}
+                            <input type="checkbox" checked name="service" value="{{fullServiceName}}"/>
                         </label> 
                         <br>
                 {{/each}}
@@ -78,15 +78,12 @@
         {{#if confirmedBookings}}   
             {{#each confirmedBookings}} 
                 {{#each selectedServices}} 
-                        <label> {{../service}}
-                            <input type="checkbox" checked name="service" value="{{this}}"/>
+
+                        <label> {{shortServiceName}}
+                            <input type="checkbox" checked name="service" value="{{fullServiceName}}"/>
                         </label> 
                         <br>
                 {{/each}}
-
-            {{/each}}
-            
-            {{#each confirmedBookings}} 
                 {{#each allUnselectedServicesNames}} 
                         <label> {{this}}
                             <input type="checkbox" name="service" value="{{this}}"/>
@@ -94,6 +91,42 @@
                         </label> 
                         <br>
                 {{/each}}
+
+                <br />
+
+                <h2>Select day and time</h2>
+
+                <label>Select day:
+                    
+                    <input type="date" name="date" value="{{eventYear}}-{{eventMonth}}-{{eventDay}}"/> 
+                    
+                </label>
+                <br />
+                <label>Select time:
+                <input
+                    type="time"
+                    name="time"
+                    value="{{eventHour}}:{{eventMin}}:00"
+                    min="09:00:00"
+                    max="19:00:00"
+                />
+                </label>
+                <br />
+
+                <h2>Contact</h2>
+
+                <label>Phone number:
+                    <input type="number" name="contact" value="{{contact}}"/>
+                </label>
+                
+                <h2>Message</h2>
+
+                <label>
+                    <textarea name="message" rows="4" cols="30"> 
+                        {{message}}
+                    </textarea>
+                </label>
+                <br />
             {{/each}}
         {{/if}}
 

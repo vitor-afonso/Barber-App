@@ -28,6 +28,7 @@ function createUpdatedEvents(event) {
   bookingInfo.selectedServices = event.selectedServices;
   bookingInfo.unselectedServices = event.unselectedServices;
   bookingInfo.allUnselectedServicesNames = event.allUnselectedServicesNames;
+  
 
   return bookingInfo;
 }

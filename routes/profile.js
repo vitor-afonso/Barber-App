@@ -233,28 +233,26 @@ router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
       //console.log('Event from DB to edit =>', eventFromDB );
       let selectedServices = [];
       let unselectedServices = [];
+
+      
+
       let allUnselectedServicesNames = [];
 
       if (
         eventFromDB.reqStatus === "Pending" &&
         eventFromDB.startDate.getTime() >= todaysDate.getTime()
       ) {
-        //
-        //    Figure out how to flatten the selectedServices
-        //pending services
-        
+
         allServices.forEach((element, i) => {
           
           if (eventFromDB.service.indexOf(element) !== -1) {
-            selectedServices.push(allServices[i]);
+            selectedServices.push({fullServiceName: allServices[i], shortServiceName: allServices[i].split('+')[0]});
           } else {
             unselectedServices.push(allServices[i]);
           }
-        });
 
-        //
-        //
-        //
+          
+        });
 
         console.log("selectedServices after loop =>", selectedServices);
         console.log("unselectedServices after loop =>", unselectedServices);
@@ -271,6 +269,7 @@ router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
               .map((element) => element.split("+"))
               .map((element) => element[0])
           );
+          
         });
 
         eventFromDB.allUnselectedServicesNames = [
@@ -278,46 +277,43 @@ router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
         ];
 
         //console.log('event with all updated info =>',createUpdatedEvents(event));
-
+        
         pendingBookings.push(createUpdatedEvents(eventFromDB));
       }
 
-      if (
-        eventFromDB.reqStatus === "Confirmed" &&
-        eventFromDB.startDate.getTime() >= todaysDate.getTime()
-      ) {
-        for (let i = 0; i < allServices.length; i++) {
-          const element = allServices[i];
+      if (eventFromDB.reqStatus === "Confirmed" && eventFromDB.startDate.getTime() >= todaysDate.getTime()) {
 
+        allServices.forEach((element, i) => {
+          
           if (eventFromDB.service.indexOf(element) !== -1) {
-            selectedServices.push(allServices.splice(i, 1));
+            selectedServices.push({fullServiceName: allServices[i], shortServiceName: allServices[i].split('+')[0]});
+          } else {
+            unselectedServices.push(allServices[i]);
           }
-        }
 
-        // here i define the properties in the updatedObject **************************
+        });
+
         eventFromDB.selectedServices = selectedServices;
-        eventFromDB.unselectedServices = [...allServices];
+        eventFromDB.unselectedServices = unselectedServices;
 
         editServiceName(eventFromDB);
 
-        allServices.forEach((element) => {
+        unselectedServices.forEach((element) => {
           element = [element];
           allUnselectedServicesNames.push(
             element
               .map((element) => element.split("+"))
               .map((element) => element[0])
           );
+          
         });
 
         eventFromDB.allUnselectedServicesNames = [
-          ...allUnselectedServicesNames,
+          ...allUnselectedServicesNames.flat(),
         ];
 
         confirmedBookings.push(createUpdatedEvents(eventFromDB));
       }
-
-      console.log("pending booking sent to edit =>", pendingBookings);
-      console.log("selectedServices =>", pendingBookings[0].selectedServices);
 
       res.render("events/booking-edit-form", {
         pendingBookings,
