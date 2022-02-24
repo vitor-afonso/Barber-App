@@ -290,7 +290,9 @@ router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
       
       confirmedBookings.push(createUpdatedEvents(eventFromDB));
     }
-    //console.log('confirmed booking sent to edit =>',confirmedBookings);
+    
+    console.log('pending booking sent to edit =>',pendingBookings);
+
     res.render('events/booking-edit-form', {pendingBookings, confirmedBookings});
   })
   .catch(err => console.log('Something went wrong while trying to get user from DB', err));

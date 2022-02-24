@@ -8,6 +8,8 @@ function createUpdatedEvents(event) {
   bookingInfo.contact = event.contact;
   bookingInfo.message = event.message;
   bookingInfo.id = event.id;
+  bookingInfo.startDate = event.startDate;
+  bookingInfo.endDate = event.endDate;
   bookingInfo.eventYear = event.startDate.getFullYear();
   bookingInfo.eventMonth = event.startDate.getMonth() + 1;
   bookingInfo.eventDay = event.startDate.getDate();
