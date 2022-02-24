@@ -8,10 +8,13 @@
 <br> <br>
 <div>
     <form action="/profile/{{user._id}}/booking/edit">
+
+    <h2>Select service</h2>
        
         {{#if pendingBookings}}   
             {{#each pendingBookings}} 
                 {{#each selectedServices}} 
+
                         <label> {{../service}}
                             <input type="checkbox" checked name="service" value="{{this}}"/>
                         </label> 
@@ -30,7 +33,9 @@
                 <h2>Select day and time</h2>
 
                 <label>Select day:
-                    <input type="date" name="date"/>
+                    
+                    <input type="date" name="date" value="{{eventYear}}-{{eventMonth}}-{{eventDay}}"/> 
+                    
                 </label>
                 <br />
                 <label>Select time:
@@ -61,6 +66,7 @@
             {{/each}}
             
         {{/if}}
+
 
 
 

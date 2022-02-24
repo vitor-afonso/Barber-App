@@ -7,7 +7,7 @@ const User = require("../models/User.model");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const isUser = require("../middleware/isUser");
 const fileUploader = require("../config/cloudinary.config");
-const {createUpdatedEvents, editServiceName} = require('../utils/app.utils');
+const { createUpdatedEvents, editServiceName } = require("../utils/app.utils");
 
 /******************** P R O F I L E *********************/
 
@@ -17,13 +17,11 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
   let pendingBookings = [];
   let previousBookings = [];
   let todaysDate = new Date();
-  
 
   User.findById(myUserID)
     .populate("events")
     .then((userFromDB) => {
       userFromDB.events.forEach((event) => {
-        
         editServiceName(event);
 
         if (event.startDate.getTime() < todaysDate.getTime()) {
@@ -35,7 +33,8 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
         ) {
           pendingBookings.push(createUpdatedEvents(event));
         }
-        if (event.reqStatus === "Confirmed" &&
+        if (
+          event.reqStatus === "Confirmed" &&
           event.startDate.getTime() >= todaysDate.getTime()
         ) {
           confirmedBookings.push(createUpdatedEvents(event));
@@ -71,7 +70,6 @@ router.get("/profile/admin", isLoggedIn, (req, res, next) => {
     .then((eventsFromDB) => {
       //console.log('Events from DB =>',eventsFromDB);
       eventsFromDB.forEach((event) => {
-
         editServiceName(event);
 
         if (event.startDate.getTime() < todaysDate.getTime()) {
@@ -92,7 +90,7 @@ router.get("/profile/admin", isLoggedIn, (req, res, next) => {
       });
 
       //console.log("confirmed bookings =>", confirmedBookings);
-      
+
       res.render("user/profile-admin", {
         user: adminUser,
         events: eventsFromDB,
@@ -114,15 +112,20 @@ router.get("/profile/:id/edit", isLoggedIn, (req, res, next) => {
   User.findById(userID)
     .then((userFromDB) => {
       //console.log("User from DB to edit =>", userFromDB);
-      
-      res.render("user/profile-edit", { user: userFromDB});
+
+      res.render("user/profile-edit", { user: userFromDB });
     })
     .catch((err) =>
       console.log("Something went wrong while getting user from DB =>", err)
     );
 });
 
-router.post("/profile/:id/edit", isLoggedIn, isUser, fileUploader.single("profile-image"),(req, res, next) => {
+router.post(
+  "/profile/:id/edit",
+  isLoggedIn,
+  isUser,
+  fileUploader.single("profile-image"),
+  (req, res, next) => {
     const userID = req.params.id;
     const { username, email, password, existingImage } = req.body;
     let profileImage = "";
@@ -136,17 +139,15 @@ router.post("/profile/:id/edit", isLoggedIn, isUser, fileUploader.single("profil
     }
 
     User.findById(userID)
-      .then(userFromDB => {
+      .then((userFromDB) => {
         if (email !== userFromDB.email) {
           User.findOne({ email }).then((found) => {
             // If the user is found, send the message email is taken
             if (found) {
-              return res
-                .status(400)
-                .render("user/profile-edit", {
-                  errorMessage: "Email already taken.",
-                  user: userFromDB,
-                });
+              return res.status(400).render("user/profile-edit", {
+                errorMessage: "Email already taken.",
+                user: userFromDB,
+              });
             }
           });
         }
@@ -209,8 +210,6 @@ router.post("/profile/:id/edit", isLoggedIn, isUser, fileUploader.single("profil
 );
 module.exports = router;
 
-
-
 /******************** P R O F I L E   B O O K I N G   E D I T *********************/
 
 router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
@@ -220,80 +219,112 @@ router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
   let confirmedBookings = [];
 
   let todaysDate = new Date();
-  
-  let allServices = ['Haircut+60', 'Beard+45', 'Haircut&Beard+90', 'Haircut&Color+120', 'Color+75'];
+
+  let allServices = [
+    "Haircut+60",
+    "Beard+45",
+    "Haircut&Beard+90",
+    "Haircut&Color+120",
+    "Color+75",
+  ];
 
   Event.findById(eventID)
-  .then(eventFromDB => {
-    //console.log('Event from DB to edit =>', eventFromDB );
-    let selectedServices = [];
-    let allUnselectedServicesNames = [];
-    
-    if (eventFromDB.reqStatus === "Pending" && eventFromDB.startDate.getTime() >= todaysDate.getTime()) {
-      
-      for (let i = 0; i < allServices.length; i++) {
-        const element = allServices[i];
+    .then((eventFromDB) => {
+      //console.log('Event from DB to edit =>', eventFromDB );
+      let selectedServices = [];
+      let unselectedServices = [];
+      let allUnselectedServicesNames = [];
+
+      if (
+        eventFromDB.reqStatus === "Pending" &&
+        eventFromDB.startDate.getTime() >= todaysDate.getTime()
+      ) {
+        //
+        //    Figure out how to flatten the selectedServices
+        //pending services
         
-        if(eventFromDB.service.indexOf(element) !== -1){
-          selectedServices.push(allServices.splice(i,1));
-        }
-        
+        allServices.forEach((element, i) => {
+          
+          if (eventFromDB.service.indexOf(element) !== -1) {
+            selectedServices.push(allServices[i]);
+          } else {
+            unselectedServices.push(allServices[i]);
+          }
+        });
+
+        //
+        //
+        //
+
+        console.log("selectedServices after loop =>", selectedServices);
+        console.log("unselectedServices after loop =>", unselectedServices);
+
+        eventFromDB.selectedServices = selectedServices;
+        eventFromDB.unselectedServices = unselectedServices;
+
+        editServiceName(eventFromDB);
+
+        unselectedServices.forEach((element) => {
+          element = [element];
+          allUnselectedServicesNames.push(
+            element
+              .map((element) => element.split("+"))
+              .map((element) => element[0])
+          );
+        });
+
+        eventFromDB.allUnselectedServicesNames = [
+          ...allUnselectedServicesNames.flat(),
+        ];
+
+        //console.log('event with all updated info =>',createUpdatedEvents(event));
+
+        pendingBookings.push(createUpdatedEvents(eventFromDB));
       }
 
-      eventFromDB.selectedServices = selectedServices;
-      eventFromDB.unselectedServices = [...allServices]; 
+      if (
+        eventFromDB.reqStatus === "Confirmed" &&
+        eventFromDB.startDate.getTime() >= todaysDate.getTime()
+      ) {
+        for (let i = 0; i < allServices.length; i++) {
+          const element = allServices[i];
 
-      editServiceName(eventFromDB);
-
-      allServices.forEach(element => {
-        element = [element];
-        allUnselectedServicesNames.push(element
-      .map((element) => element.split("+"))
-      .map((element) => element[0]));
-      });
-
-      eventFromDB.allUnselectedServicesNames = [...allUnselectedServicesNames];
-
-      
-      //console.log('event with all updated info =>',createUpdatedEvents(event));
-
-      
-      pendingBookings.push(createUpdatedEvents(eventFromDB));
-    }
-    
-    if (eventFromDB.reqStatus === "Confirmed" && eventFromDB.startDate.getTime() >= todaysDate.getTime()) {
-
-
-      for (let i = 0; i < allServices.length; i++) {
-        const element = allServices[i];
-        
-        if(eventFromDB.service.indexOf(element) !== -1){
-          selectedServices.push(allServices.splice(i,1));
+          if (eventFromDB.service.indexOf(element) !== -1) {
+            selectedServices.push(allServices.splice(i, 1));
+          }
         }
-        
+
+        // here i define the properties in the updatedObject **************************
+        eventFromDB.selectedServices = selectedServices;
+        eventFromDB.unselectedServices = [...allServices];
+
+        editServiceName(eventFromDB);
+
+        allServices.forEach((element) => {
+          element = [element];
+          allUnselectedServicesNames.push(
+            element
+              .map((element) => element.split("+"))
+              .map((element) => element[0])
+          );
+        });
+
+        eventFromDB.allUnselectedServicesNames = [
+          ...allUnselectedServicesNames,
+        ];
+
+        confirmedBookings.push(createUpdatedEvents(eventFromDB));
       }
 
-      // here i define the properties in the updatedObject **************************
-      eventFromDB.selectedServices = selectedServices;
-      eventFromDB.unselectedServices = [...allServices]; 
+      console.log("pending booking sent to edit =>", pendingBookings);
+      console.log("selectedServices =>", pendingBookings[0].selectedServices);
 
-      editServiceName(eventFromDB);
-
-      allServices.forEach(element => {
-        element = [element];
-        allUnselectedServicesNames.push(element
-      .map((element) => element.split("+"))
-      .map((element) => element[0]));
+      res.render("events/booking-edit-form", {
+        pendingBookings,
+        confirmedBookings,
       });
-
-      eventFromDB.allUnselectedServicesNames = [...allUnselectedServicesNames];
-      
-      confirmedBookings.push(createUpdatedEvents(eventFromDB));
-    }
-    
-    console.log('pending booking sent to edit =>',pendingBookings);
-
-    res.render('events/booking-edit-form', {pendingBookings, confirmedBookings});
-  })
-  .catch(err => console.log('Something went wrong while trying to get user from DB', err));
+    })
+    .catch((err) =>
+      console.log("Something went wrong while trying to get user from DB", err)
+    );
 });

@@ -8,23 +8,28 @@ function createUpdatedEvents(event) {
   bookingInfo.contact = event.contact;
   bookingInfo.message = event.message;
   bookingInfo.id = event.id;
-  bookingInfo.startDate = event.startDate;
-  bookingInfo.endDate = event.endDate;
   bookingInfo.eventYear = event.startDate.getFullYear();
   bookingInfo.eventMonth = event.startDate.getMonth() + 1;
   bookingInfo.eventDay = event.startDate.getDate();
-  bookingInfo.eventHour = event.startDate.getHours();
-  //to add a 0 when the minutes is only one digit
+  //to add a 0 when the HOUR is only one digit
+  if (event.startDate.getHours() <= 9) {
+    bookingInfo.eventHour = `${0}${event.startDate.getHours()}`;
+  } else {
+    bookingInfo.eventHour = event.startDate.getHours();
+  }
+  //to add a 0 when the MINUTES is only one digit
   if (event.startDate.getMinutes() <= 9) {
     bookingInfo.eventMin = `${0}${event.startDate.getMinutes()}`;
   } else {
     bookingInfo.eventMin = event.startDate.getMinutes();
   }
+  bookingInfo.startDate = event.startDate;
+  bookingInfo.endDate = event.endDate;
   bookingInfo.selectedServices = event.selectedServices;
   bookingInfo.unselectedServices = event.unselectedServices;
   bookingInfo.allUnselectedServicesNames = event.allUnselectedServicesNames;
+
   return bookingInfo;
-  
 }
 
 function editServiceName(event){
