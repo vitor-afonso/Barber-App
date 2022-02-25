@@ -9,8 +9,19 @@ function createUpdatedEvents(event) {
   bookingInfo.message = event.message;
   bookingInfo.id = event.id;
   bookingInfo.eventYear = event.startDate.getFullYear();
-  bookingInfo.eventMonth = event.startDate.getMonth() + 1;
-  bookingInfo.eventDay = event.startDate.getDate();
+  //bookingInfo.eventMonth = event.startDate.getMonth() + 1;
+  //to add a 0 when the MONTH is only one digit
+  if (event.startDate.getMonth() <= 9) {
+    bookingInfo.eventMonth = `${0}${event.startDate.getMonth()}`;
+  } else {
+    bookingInfo.eventMonth = event.startDate.getMonth();
+  }
+  //to add a 0 when the DAY is only one digit
+  if (event.startDate.getDate() <= 9) {
+    bookingInfo.eventDay = `${0}${event.startDate.getDate()}`;
+  } else {
+    bookingInfo.eventDay = event.startDate.getDate();
+  }
   //to add a 0 when the HOUR is only one digit
   if (event.startDate.getHours() <= 9) {
     bookingInfo.eventHour = `${0}${event.startDate.getHours()}`;
@@ -27,9 +38,7 @@ function createUpdatedEvents(event) {
   bookingInfo.endDate = event.endDate;
   bookingInfo.selectedServices = event.selectedServices;
   bookingInfo.unselectedServices = event.unselectedServices;
-  bookingInfo.allUnselectedServicesNames = event.allUnselectedServicesNames;
   
-
   return bookingInfo;
 }
 

@@ -234,8 +234,6 @@ router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
       let selectedServices = [];
       let unselectedServices = [];
 
-      
-
       let allUnselectedServicesNames = [];
 
       if (
@@ -248,36 +246,19 @@ router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
           if (eventFromDB.service.indexOf(element) !== -1) {
             selectedServices.push({fullServiceName: allServices[i], shortServiceName: allServices[i].split('+')[0]});
           } else {
-            unselectedServices.push(allServices[i]);
+            unselectedServices.push({fullServiceName: allServices[i], shortServiceName: allServices[i].split('+')[0]});
           }
 
-          
         });
 
-        console.log("selectedServices after loop =>", selectedServices);
-        console.log("unselectedServices after loop =>", unselectedServices);
+        /* console.log("selectedServices after loop =>", selectedServices);
+        console.log("unselectedServices after loop =>", unselectedServices); */
 
         eventFromDB.selectedServices = selectedServices;
         eventFromDB.unselectedServices = unselectedServices;
 
         editServiceName(eventFromDB);
 
-        unselectedServices.forEach((element) => {
-          element = [element];
-          allUnselectedServicesNames.push(
-            element
-              .map((element) => element.split("+"))
-              .map((element) => element[0])
-          );
-          
-        });
-
-        eventFromDB.allUnselectedServicesNames = [
-          ...allUnselectedServicesNames.flat(),
-        ];
-
-        //console.log('event with all updated info =>',createUpdatedEvents(event));
-        
         pendingBookings.push(createUpdatedEvents(eventFromDB));
       }
 
@@ -288,7 +269,7 @@ router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
           if (eventFromDB.service.indexOf(element) !== -1) {
             selectedServices.push({fullServiceName: allServices[i], shortServiceName: allServices[i].split('+')[0]});
           } else {
-            unselectedServices.push(allServices[i]);
+            unselectedServices.push({fullServiceName: allServices[i], shortServiceName: allServices[i].split('+')[0]});
           }
 
         });
@@ -298,29 +279,33 @@ router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
 
         editServiceName(eventFromDB);
 
-        unselectedServices.forEach((element) => {
-          element = [element];
-          allUnselectedServicesNames.push(
-            element
-              .map((element) => element.split("+"))
-              .map((element) => element[0])
-          );
-          
-        });
-
-        eventFromDB.allUnselectedServicesNames = [
-          ...allUnselectedServicesNames.flat(),
-        ];
-
         confirmedBookings.push(createUpdatedEvents(eventFromDB));
       }
-
+      //console.log('pending booking sent to edit view =>',pendingBookings);
       res.render("events/booking-edit-form", {
         pendingBookings,
-        confirmedBookings,
+        confirmedBookings, bookingID: eventID
       });
     })
     .catch((err) =>
-      console.log("Something went wrong while trying to get user from DB", err)
+      console.log("Something went wrong while trying to get event from DB to send to edit view =>", err)
     );
+});
+
+router.post('/profile/:id/booking/edit', isLoggedIn, (req, res, next) => {
+  const evendID = req.params.id;
+  const {service, date, time, contact, message} = req.body;
+  console.log('post req. params =>',evendID);
+  console.log('post req. body =>',req.body);
+
+  /* Event.findById(evendID)
+    .then(eventFromDB => {
+      console.log('Event from DB to be edited =>',eventFromDB);
+      if (eventFromDB.service !== service) {
+
+      }
+
+
+    })
+    .catch(err => console.log('Something went wrong while trying to get event from DB to update =>', err)); */
 });
