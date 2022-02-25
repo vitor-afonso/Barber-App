@@ -1,0 +1,53 @@
+<div>
+  {{#if pendingBookings}}
+
+    {{#each pendingBookings}}
+      <hr />
+      <h3>Booking Request</h3>
+
+      <div>
+        <div>
+
+          <div><b>Name:</b> <span>{{username}}</span></div>
+          <div><b>Service:</b> <span>{{service}}</span></div>
+          <div>
+            <b>Date:</b>
+            <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
+          <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
+
+          {{#if message}}
+            <div> <b>Message:</b> <span>{{message}}</span></div>
+          {{/if}}
+          {{#if contact}}
+            <div> <b>Contact:</b> <span>{{contact}}</span></div>
+          {{/if}}
+          <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
+
+        </div>
+        <br />
+      </div>
+      <hr />
+
+      <h1>Reply booking request</h1>
+      <form action="/send-email" method="post">
+
+        <label>Email
+          <input type="email" name="email" value="{{email}}" />
+        </label>
+
+        <label>Subject
+          <input type="text" name="subject" value="Booking request"/>
+        </label>
+
+        <label>Message
+          <textarea type="text" name="message"></textarea>
+        </label>
+
+        <button type="submit">Submit</button>
+
+        <a href="/profile/admin">Cancel</a>
+
+      </form>
+    {{/each}}
+  {{/if}}
+</div>

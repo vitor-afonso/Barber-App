@@ -42,7 +42,7 @@
               <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
               <div>
                 <a href="/profile/{{id}}/booking/edit">Edit</a>
-                <a href="/profile/{{id}}/booking/delete">Cancel</a>
+                <a href="/profile/{{id}}/booking/delete">Delete</a> 
               </div>
             </div>
             <br />
@@ -65,7 +65,7 @@
               
               <div>
                 <a href="/profile/{{id}}/booking/edit">Edit</a>
-                <a href="/profile/{{id}}/booking/delete">Cancel</a>
+                <a href="/profile/{{id}}/booking/delete">Delete</a>
               </div>
             </div>
             <br />
@@ -95,4 +95,7 @@
     </section>
   {{/if}}
 
+  {{#if deleteConfirmation}}
+    <p>{{deleteConfirmation}}</p>
+  {{/if}}
 </div>

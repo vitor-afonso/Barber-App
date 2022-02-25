@@ -4,10 +4,12 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const Event = require("../models/Event.model");
 const User = require("../models/User.model");
+const nodemailer = require('nodemailer');
 const isLoggedIn = require("../middleware/isLoggedIn");
 const isUser = require("../middleware/isUser");
 const fileUploader = require("../config/cloudinary.config");
 const { createUpdatedEvents, editServiceName } = require("../utils/app.utils");
+
 
 /******************** P R O F I L E *********************/
 
@@ -89,8 +91,6 @@ router.get("/profile/admin", isLoggedIn, (req, res, next) => {
         }
       });
 
-      //console.log("confirmed bookings =>", confirmedBookings);
-
       res.render("user/profile-admin", {
         user: adminUser,
         events: eventsFromDB,
@@ -123,12 +123,15 @@ router.get("/profile/:id/edit", isLoggedIn, (req, res, next) => {
 router.post(
   "/profile/:id/edit",
   isLoggedIn,
-  isUser,
   fileUploader.single("profile-image"),
   (req, res, next) => {
     const userID = req.params.id;
     const { username, email, password, existingImage } = req.body;
     let profileImage = "";
+
+    //
+    //  Find out why cant i update admin profile pic
+    //
 
     if (req.file !== undefined) {
       profileImage = req.file.path;
@@ -138,8 +141,12 @@ router.post(
       console.log("old req file path =>", profileImage);
     }
 
+    //
+    //
+    //
+
     User.findById(userID)
-      .then((userFromDB) => {
+      .then(userFromDB => {
         if (email !== userFromDB.email) {
           User.findOne({ email }).then((found) => {
             // If the user is found, send the message email is taken
@@ -190,7 +197,11 @@ router.post(
                 "Updated user without changing password =>",
                 updatedUser
               );
-              res.redirect("/profile");
+              if (req.session.user.role === "User") {
+                res.redirect("/profile");
+              } else {
+                res.redirect("/profile/admin");
+              }
             })
             .catch((err) =>
               console.log(
@@ -210,7 +221,7 @@ router.post(
 );
 module.exports = router;
 
-/******************** P R O F I L E   B O O K I N G   E D I T *********************/
+/******************** B O O K I N G   E D I T *********************/
 
 router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
   const eventID = req.params.id;
@@ -304,15 +315,19 @@ router.post('/profile/:id/booking/edit', isLoggedIn, (req, res, next) => {
       .reduce((a, b) => a + b);
   let newStartDate = new Date(`${date}T${time}Z`);
   let newEndDate;
+  let newReqStatus = 'Pending'; 
 
-
+  /* if(adminReqStatus) {
+    newReqStatus = 'Confirmed';
+  }
+ */
   /* console.log('post req. params =>',evendID);
   console.log('post req. body =>',req.body); */
 
   newEndDate = new Date(newStartDate.getTime() + minutes * 60000);
 
 
-  Event.findByIdAndUpdate(evendID, {service: service, startDate: newStartDate, endDate: newEndDate, contact: contact, message: message, reqStatus: 'Pending'},
+  Event.findByIdAndUpdate(evendID, {service: service, startDate: newStartDate, endDate: newEndDate, contact: contact, message: message, reqStatus: newReqStatus},
     { new: true })
     .then(updatedEvent => {
       //console.log('newly updated event =>', updatedEvent);
@@ -320,4 +335,95 @@ router.post('/profile/:id/booking/edit', isLoggedIn, (req, res, next) => {
     })
     .catch(err => console.log('Something went wrong while trying to get event from DB to update =>', err));
   
+});
+
+/*********************** B O O K I N G   D E L E T E *********************/
+
+router.get('/profile/:id/booking/delete', isLoggedIn, (req, res, next) => {
+  const user = req.session.user;
+  const eventID = req.params.id;
+  //console.log('deleting event id =>',eventID);
+
+  Event.findByIdAndRemove(eventID)
+  .then((result) => {
+    if(user.role == 'Admin') {
+      
+      res.redirect('/profile/admin');
+
+    } else {
+
+      res.redirect('/profile');
+    }
+  })
+  .catch(err => console.log('Something went wrong while trying to delete an event =>',err));
+
+});
+
+/*********************** B O O K I N G  C O N F I R M  *********************/
+
+router.get('/profile/:id/booking/confirm', isLoggedIn, (req, res, next) => {
+
+  const eventID = req.params.id;
+  //console.log('deleting event id =>',eventID);
+
+  Event.findByIdAndUpdate(eventID, {reqStatus: 'Confirmed'}, {new: true})
+    .then( updatedEvent => {
+      //console.log('new confirmed event =>',updatedEvent);
+      res.redirect('/profile/admin');
+    })
+    .catch(err => console.log('Something went wrong while trying to confirm an event =>',err));
+});
+
+
+/*********************** S E N D   E M A I L *********************/
+
+
+router.get("/send-email/:id", (req, res, next) => {
+  const eventID = req.params.id;
+  let pendingBookings = [];
+
+  Event.findById(eventID)
+  .populate('authorID')
+    .then(eventFromDB => {
+
+      pendingBookings.push(createUpdatedEvents(eventFromDB));
+      
+      console.log('pending booking to send email',pendingBookings);
+
+      res.render('events/email-form', {pendingBookings});
+
+    })
+    .catch(err => console.log('Something went wrong while trying to get event to send email =>',err));
+  
+
+
+  
+});
+
+
+router.post('/send-email', (req, res, next) => {
+
+  let { email, subject, message } = req.body;
+
+  let transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'vitorafonso@gmail.com',
+      pass: '123456'
+    }
+  });
+
+  transporter.sendMail({
+    from: '" Barber App " <dj_vito_7@hotmail.com>',
+    to: email, 
+    subject: subject, 
+    text: message,
+    html: `<b>${message}</b>`
+  })
+  .then(info => {
+    console.log('email info =>',info);
+    res.render('user/profile-admin', {message: 'Email successfully sent.'});
+  })
+  //.then(info => res.render('index', {email, subject, message, info}))
+  .catch(err => console.log('Something went wrong while trying to send email =>',err));
 });

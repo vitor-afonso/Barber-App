@@ -3,6 +3,7 @@
 function createUpdatedEvents(event) {
   let bookingInfo = {};
   bookingInfo.username = event.authorID.username;
+  bookingInfo.email = event.authorID.email;
   bookingInfo.service = event.service;
   bookingInfo.reqStatus = event.reqStatus;
   bookingInfo.contact = event.contact;

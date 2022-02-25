@@ -14,7 +14,6 @@
       <div><b>Username:</b> <span>{{user.username}}</span></div>
       <div><b>Email:</b> <span>{{user.email}}</span></div>
       <div><b>Password:</b> <span>********</span></div>
-      <a href="#">Reset Password</a>
 
     </div>
 
@@ -26,11 +25,14 @@
   </section>
 
   {{#if events}}
-    <hr />
+    
     <section class="profile-mid">
 
       {{#if pendingBookings}}
+
+        <hr />
         <h3>Pending bookings</h3>
+        
         <div>
           {{#each pendingBookings}}
             <div>
@@ -50,14 +52,15 @@
               <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
 
               <div>
-                <a href="#">Reply</a>
-                <a href="#">Confirm</a>
-                <a href="#">Reject</a>
+                <a href="/send-email/{{id}}">Reply</a>
+                <a href="/profile/{{id}}/booking/confirm">Confirm</a>
+                <a href="/profile/{{id}}/booking/delete">Reject</a>
               </div>
             </div>
             <br />
           {{/each}}
         </div>
+
       {{/if}}
       <hr />
 
@@ -81,8 +84,8 @@
               <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
 
               <div>
-                <a href="/profile/{{../user._id}}/booking/edit">Edit</a>
-                <a href="/profile/{{../user._id}}/booking/delete">Cancel</a>
+                <a href="/profile/{{id}}/booking/edit">Edit</a>
+                <a href="/profile/{{id}}/booking/delete">Cancel</a>
               </div>
             </div>
             <br />
@@ -92,6 +95,13 @@
       {{/if}}
     
     </section>
+  {{/if}}
+
+  {{#if deleteConfirmation}}
+    <p>{{deleteConfirmation}}</p>
+  {{/if}}
+  {{#if message}}
+    <p>{{message}}</p>
   {{/if}}
 
 </div>
