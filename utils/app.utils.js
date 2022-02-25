@@ -9,12 +9,11 @@ function createUpdatedEvents(event) {
   bookingInfo.message = event.message;
   bookingInfo.id = event.id;
   bookingInfo.eventYear = event.startDate.getFullYear();
-  //bookingInfo.eventMonth = event.startDate.getMonth() + 1;
   //to add a 0 when the MONTH is only one digit
   if (event.startDate.getMonth() <= 9) {
-    bookingInfo.eventMonth = `${0}${event.startDate.getMonth()}`;
+    bookingInfo.eventMonth = `${0}${event.startDate.getMonth() + 1}`;
   } else {
-    bookingInfo.eventMonth = event.startDate.getMonth();
+    bookingInfo.eventMonth = event.startDate.getMonth() + 1;
   }
   //to add a 0 when the DAY is only one digit
   if (event.startDate.getDate() <= 9) {

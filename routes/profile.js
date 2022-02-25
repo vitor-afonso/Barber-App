@@ -295,17 +295,29 @@ router.get("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
 router.post('/profile/:id/booking/edit', isLoggedIn, (req, res, next) => {
   const evendID = req.params.id;
   const {service, date, time, contact, message} = req.body;
-  console.log('post req. params =>',evendID);
-  console.log('post req. body =>',req.body);
+  let minutes = 0;
+  //allows us to define a end time for the booking
+  minutes = [service]
+      .map((element) => element.split("+"))
+      .map((element) => element[1])
+      .map(Number)
+      .reduce((a, b) => a + b);
+  let newStartDate = new Date(`${date}T${time}Z`);
+  let newEndDate;
 
-  /* Event.findById(evendID)
-    .then(eventFromDB => {
-      console.log('Event from DB to be edited =>',eventFromDB);
-      if (eventFromDB.service !== service) {
 
-      }
+  /* console.log('post req. params =>',evendID);
+  console.log('post req. body =>',req.body); */
+
+  newEndDate = new Date(newStartDate.getTime() + minutes * 60000);
 
 
+  Event.findByIdAndUpdate(evendID, {service: service, startDate: newStartDate, endDate: newEndDate, contact: contact, message: message, reqStatus: 'Pending'},
+    { new: true })
+    .then(updatedEvent => {
+      //console.log('newly updated event =>', updatedEvent);
+      res.redirect('/profile');
     })
-    .catch(err => console.log('Something went wrong while trying to get event from DB to update =>', err)); */
+    .catch(err => console.log('Something went wrong while trying to get event from DB to update =>', err));
+  
 });
