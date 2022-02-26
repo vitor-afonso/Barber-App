@@ -18,3 +18,13 @@ h1 {
   color: 15px;
 }
 
+.c-carousel-image {
+  width: auto;
+  height: 35%;
+  object-fit: cover;
+}
+
+.services-list {
+  margin: auto;
+  max-width: 60%;
+}
