@@ -1,9 +1,17 @@
 html,
 body {
   height: 100%;
-  padding: 50px;
+  padding: 25px 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+.body-container {
+  height: 100%;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: flex-start; */
+}
+
 /*** to hide arrows on input type number **/
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -18,13 +26,43 @@ h1 {
   color: 15px;
 }
 
+footer {
+
+  outline: 1px solid red;
+
+}
+/************************  INDEX  *************************/
+
 .c-carousel-image {
   width: auto;
-  height: 35%;
   object-fit: cover;
 }
-
+#home-services-container {
+  outline: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 50px 0;
+}
 .services-list {
-  margin: auto;
+  margin: 25px 0;
+  min-width: 50%;
   max-width: 60%;
+  outline: 1px solid red;
+}
+
+@media(max-width: 768px) {
+  html {
+    padding: 10px;
+  }
+  body {
+    padding: 25px 0;
+  }
+  .services-list {
+  
+    max-width: 100%;
+    
+  }
+  
 }
