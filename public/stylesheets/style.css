@@ -1,68 +1,103 @@
-html,
-body {
-  height: 100%;
-  padding: 25px 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+:root{
+  font-size: 62,5%;
 }
-
-.body-container {
-  height: 100%;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: flex-start; */
+* {
+  box-sizing: border-box;
 }
+/************************  GENERAL  *************************/
 
-/*** to hide arrows on input type number **/
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+button{
+  padding: 10px 25px ;
 }
 a {
-  color: #00b7ff;
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
 }
 
-h1 {
-  color: 15px;
-}
 
-footer {
+/************************  LAYOUT  *************************/
+
+body {
+  margin: 0 auto;
+  font-size: 1,6%;
+
+  width: 1140px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
 
   outline: 1px solid red;
-
+}
+header {
+  height: 50px;
+  background-color: rgba(128, 128, 128, 0.1);
+  
+}
+header nav ul {
+  display: flex;
+  justify-content: flex-end;
+}
+.nav-li {
+  list-style: none;
+}
+.nav-li-link {
+  padding: 15px 20px;
+}
+footer {
+  
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: rgba(128, 128, 128, 0.1);
+}
+footer .info-box {
+  padding: 15px;
+  outline: 1px solid red;
 }
 /************************  INDEX  *************************/
 
-.c-carousel-image {
-  width: auto;
-  object-fit: cover;
+#index-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-#home-services-container {
-  outline: 1px solid red;
+
+#index-body #image-top div {
+  height: 20%;
+}
+#index-body #image-top div img {
+  width: 100%;
+  object-fit: cover;
+  
+}
+
+#services-list {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  margin: 50px 0;
-}
-.services-list {
-  margin: 25px 0;
-  min-width: 50%;
-  max-width: 60%;
-  outline: 1px solid red;
+  font-size: 3rem;
+  /* outline: 1px solid red; */
 }
 
+#services-list table {
+  width: 100%;
+  border: 5px dashed #000;
+}
+#services-list table td {
+  font-size: 1.8rem;
+  padding: 15px;
+}
+
+
+
+
 @media(max-width: 768px) {
-  html {
-    padding: 10px;
-  }
-  body {
-    padding: 25px 0;
-  }
-  .services-list {
   
-    max-width: 100%;
-    
-  }
   
 }

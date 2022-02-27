@@ -1,50 +1,57 @@
-<div
-  id="carouselExampleSlidesOnly"
-  class="carousel slide"
-  data-bs-ride="carousel"
->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img
-        src="/images/barbershop-image.jpeg"
-        class="d-block w-100 c-carousel-image"
-        alt="..."
-      />
+
+<div id="index-body">
+
+  <section id="image-top">
+    
+    <div>
+      <img src="/images/barbershop-image.jpg" alt="home-image">
     </div>
-    <div class="carousel-item">
-      <img
-        src="/images/barbershop-image.jpeg"
-        class="d-block w-100 c-carousel-image"
-        alt="..."
-      />
-    </div>
-    <div class="carousel-item">
-      <img
-        src="/images/barbershop-image.jpeg"
-        class="d-block w-100 c-carousel-image"
-        alt="..."
-      />
-    </div>
-  </div>
+
+
+  </section>
+
+  <section id="services-list">
+
+    <table>
+      <tr>
+        <thead>
+          Service & Price 
+        </thead>
+      </tr>
+      <tr>
+        <td>Haircut</td>
+        <td>$60</td>
+      </tr>
+      <tr>
+        <td>Beard</td>
+        <td>$45</td>
+      </tr>
+      <tr>
+        <td>Haircut & Beard</td>
+        <td>$90</td>
+      </tr>
+      <tr>
+        <td>Haircut & Color</td>
+        <td>$120</td>
+      </tr>
+      <tr>
+        <td>Color</td>
+        <td>$75</td>
+      </tr>
+    </table>
+
+    <button>
+      <a href="/booking" class="link-danger">Request booking</a>
+    </button>
+
+  </section>
+
+  {{#if bookingConfirmation}}
+    <p>{{bookingConfirmation}} 
+      Check your <a href="/profile">profile</a> to see your booking.
+    </p>
+  {{/if}}
+
 </div>
 
-
-
-  <h3>Services</h3>
-  <ul class="list-group services-list">
-    <li class="list-group-item text-center">An item</li>
-    <li class="list-group-item text-center">A second item</li>
-    <li class="list-group-item text-center">A third item</li>
-    <li class="list-group-item text-center">A fourth item</li>
-    <li class="list-group-item text-center">And a fifth one</li>
-  </ul>
-
-  <a href="/booking" class="link-danger">Request booking</a>
-</button>
-</div>
-{{#if bookingConfirmation}}
-  <p>{{bookingConfirmation}}
-    Check your
-    <a href="/profile">profile</a>
-    to see your booking.</p>
-{{/if}}
+</div> 
