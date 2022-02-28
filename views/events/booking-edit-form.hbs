@@ -1,8 +1,9 @@
 
-<div>
-    <form action="/profile/{{bookingID}}/booking/edit" method="post">
+<div class="booking-container">
 
-    <h2>Select service</h2>
+    <form id="edit-booking-form" action="/profile/{{bookingID}}/booking/edit" method="post">
+        
+        <h2>Select service</h2>
        
         {{#if pendingBookings}}   
             {{#each pendingBookings}} 

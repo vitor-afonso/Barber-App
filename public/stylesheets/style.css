@@ -56,7 +56,8 @@ header nav ul {
   list-style: none;
   
 }
-.nav-li:hover {
+ 
+a:hover {
   
   border-bottom: 1px solid #CCC;
   box-shadow: 0 5px 5px #CCC;
@@ -128,7 +129,7 @@ footer .info-box {
 
 #login-container,
 #signup-container,
-#booking-container {
+.booking-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -137,7 +138,7 @@ footer .info-box {
 
 #login-container form,
 #signup-container form,
-#booking-container form {
+.booking-container form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,7 +150,7 @@ footer .info-box {
 
 #login-container form label, 
 #signup-container form label,
-#booking-container form label {
+.booking-container form label {
   margin-bottom: 15px;
   width: 100%;
 }
@@ -168,18 +169,18 @@ footer .info-box {
 /************************  BOOKING  *************************/
 
 
-#booking-container form {
+.booking-container form {
   border: none;
 
   /* flex-direction: row;
   flex-wrap: wrap; */
 }
-/* #booking-container #services-container, 
-#booking-container #time-container{
+/* .booking-container #services-container, 
+.booking-container #time-container{
   flex: 1;
 } */
 
-#booking-container .services-details {
+.booking-container .services-details {
   
   width: 100%;
   border: 1px solid #CCC;
@@ -189,22 +190,22 @@ footer .info-box {
   align-items: center;
   padding: 0 15px 15px 15px;
 }
-#booking-container form label {
+.booking-container form label {
   margin-bottom: 5px;
 }
-#booking-container form input {
+.booking-container form input {
   outline: none;
 }
-#booking-container form textarea {
+.booking-container form textarea {
   outline: none;
 }
-#booking-container #services-container label {
+.booking-container #services-container label {
   display: flex;
   justify-content: space-between;
 
 }
-#booking-container #time-container input,
-#booking-container #contact-container input,
+.booking-container #time-container input,
+.booking-container #contact-container input,
 .profile-info input {
   width: 100%;
   height: 30px;
@@ -214,7 +215,7 @@ footer .info-box {
   padding: 5px;
 }
 
-#booking-container #message-container textarea {
+.booking-container #message-container textarea {
   width: 100%;
   border: 1px solid #CCC;
   border-radius: 10px;
@@ -222,6 +223,26 @@ footer .info-box {
   resize: none;
 } 
 
+/************************  EDIT BOOKING  *************************/
+
+.booking-container a,
+.booking-container button {
+  width: 100%;
+  padding: 8px 25px ;
+  cursor: pointer;
+  background-color: #EEE;
+  border-radius: 15px;
+  border: 1px solid #CCC;
+  color: #555;
+  font-size: 1rem;
+  text-align: center;
+  
+  /* align-self: center; */
+}
+.booking-container a {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
 
 /************************  PROFILE  *************************/
 
@@ -285,14 +306,15 @@ footer .info-box {
 
 .profile-top .profile-info a {
   font-size: 1.2rem;
-  /* width: 55%; */
-  padding: 5px 15px ;
+  padding: 8px 25px ;
   cursor: pointer;
   background-color: #EEE;
   border-radius: 15px;
   border: 1px solid #CCC;
   color: #555;
-  align-self: center;
+  font-size: 1rem;
+  text-align: center;
+  /* align-self: center; */
 }
 
 .profile-mid .pending-booking a,
@@ -310,6 +332,13 @@ footer .info-box {
 #edit-profile-container {
   align-items: center;
 }
+#edit-profile-container button {
+  
+}
+
+
+
+
 
 @media(max-width: 768px) {
   header nav ul {
