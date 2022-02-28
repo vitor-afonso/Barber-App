@@ -23,8 +23,6 @@ a {
   text-decoration: none;
   cursor: pointer;
   color: #000;
-
-
 }
 
 /*Makes arrows on input number hidden*/
@@ -225,9 +223,28 @@ footer .info-box {
 } 
 
 
+/************************  PROFILE  *************************/
 
 
-
+#profile-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  
+}
+#profile-container > h1 {
+  align-self: center;
+}
+.profile-top {
+  width: 100%;
+  display: flex;
+  outline: 1px solid red;
+}
+.profile-top > div {
+  margin-right: 25px;
+}
 
 @media(max-width: 768px) {
   header nav ul {

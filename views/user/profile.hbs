@@ -1,20 +1,19 @@
-<div class="profile-container">
+<div id="profile-container">
 
-  <h1>Profile page</h1>
+  <h1>Profile</h1>
 
   <section class="profile-top">
     <div>
-
       <div><b>Username:</b> <span>{{user.username}}</span></div>
       <div><b>Email:</b> <span>{{user.email}}</span></div>
       <div><b>Password:</b> <span>********</span></div>
-
+      <a href="/profile/{{user._id}}/edit">Edit profile</a>
     </div>
-    <br>
+    
     <div>
       <img src="{{user.imageUrl}}" alt="profile image" width="150" />
       <br>
-      <a href="/profile/{{user._id}}/edit">Edit profile</a>
+      
     </div>
   </section>
 
