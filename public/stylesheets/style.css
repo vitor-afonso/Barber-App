@@ -23,8 +23,16 @@ a {
   text-decoration: none;
   cursor: pointer;
   color: #000;
+
+
 }
 
+/*Makes arrows on input number hidden*/
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 
 /************************  LAYOUT  *************************/
 
@@ -88,7 +96,6 @@ footer .info-box {
 #index-body #image-top div img {
   width: 100%;
   object-fit: cover;
-  
 }
 
 #services-list {
@@ -96,15 +103,15 @@ footer .info-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   font-size: 3rem;
   /* outline: 1px solid red; */
 }
 
 #services-list table {
   width: 100%;
-  border-top: 5px dashed #000;
-  border-bottom: 5px dashed #000;
+  border-top: 10px dashed #000;
+  border-bottom: 10px dashed #000;
 }
 #services-list table td {
   font-size: 1.8rem;
@@ -116,8 +123,13 @@ footer .info-box {
   background-color: #FFF;
 }
 
+
+/************************  LOGIN  *************************/
+
+
 #login-container,
-#signup-container {
+#signup-container,
+#booking-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -127,7 +139,8 @@ footer .info-box {
 }
 
 #login-container form,
-#signup-container form {
+#signup-container form,
+#booking-container form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -138,7 +151,8 @@ footer .info-box {
 }
 
 #login-container form label, 
-#signup-container form label {
+#signup-container form label,
+#booking-container form label {
   margin-bottom: 15px;
   width: 100%;
 }
@@ -153,7 +167,62 @@ footer .info-box {
 
 }
 
-/************************  LOGIN  *************************/
+
+/************************  BOOKING  *************************/
+
+
+#booking-container form {
+  border: none;
+
+  /* flex-direction: row;
+  flex-wrap: wrap; */
+}
+/* #booking-container #services-container, 
+#booking-container #time-container{
+  flex: 1;
+} */
+
+#booking-container .services-details {
+  
+  width: 100%;
+  border: 1px solid #CCC;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 15px 15px 15px;
+}
+#booking-container form label {
+  margin-bottom: 5px;
+}
+#booking-container form input {
+  outline: none;
+}
+#booking-container form textarea {
+  outline: none;
+}
+#booking-container #services-container label {
+  display: flex;
+  justify-content: space-between;
+
+}
+#booking-container #time-container input,
+#booking-container #contact-container input {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #CCC;
+  outline: none;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+#booking-container #message-container textarea {
+  width: 100%;
+  border: 1px solid #CCC;
+  border-radius: 10px;
+  padding: 10px;
+  resize: none;
+} 
 
 
 
@@ -161,6 +230,12 @@ footer .info-box {
 
 
 @media(max-width: 768px) {
-  
-  
+  header nav ul {
+    justify-content: center;
+  }
+  footer{
+    flex-direction: column;
+    align-items: center;
+  }
 }
+

@@ -1,72 +1,82 @@
 
 <div id="booking-container">
-  <h1>Booking page</h1>
-  <form action="/booking" method="post">
-
-    <h2>Select service</h2>
-
-    <label>
-      Haircut - $60
-      <input type="checkbox" name="service" value="Haircut+60" />
-    </label>
-    <br />
-    <label>
-      Beard - $45
-      <input type="checkbox" name="service" value="Beard+45" />
-    </label>
-    <br />
-    <label>
-      Haircut and Beard - $90
-      <input type="checkbox" name="service" value="Haircut&Beard+90" />
-    </label>
-    <br />
-    <label>
-      Haircut and Color $120
-      <input type="checkbox" name="service" value="Haircut&Color+120" />
-    </label>
-    <br />
-    <label>
-      Color - $75
-      <input type="checkbox" name="service" value="Color+75" />
-    </label>
-
-    <br />
-
-    <h2>Select day and time</h2>
-
-    <label>Select day:
-      <input type="date" name="date" />
-    </label>
-    <br />
-    <label>Select time:
-      <input
-        type="time"
-        name="time"
-        value="09:00:00"
-        min="09:00:00"
-        max="19:00:00"
-      />
-    </label>
-    <br />
-    
-    <h2>Contact</h2>
-
-    <label>Phone number:
-      <input type="number" name="contact" />
-    </label>
   
-    <h2>Message</h2>
+  <form action="/booking" method="post">
+    <h1>Booking</h1>
 
-    <label>
-      <textarea name="message" rows="4" cols="30">
+    <div id="services-container" class="services-details">
 
-      </textarea>
-    </label>
+      <h2>Select service</h2>
+
+      <label >
+        <span>Haircut - $60 </span>
+        <input type="checkbox" name="service" value="Haircut+60" />
+      </label>
+      <br />
+      <label>
+        <span>Beard - $45</span>
+        <input type="checkbox" name="service" value="Beard+45" />
+      </label>
+      <br />
+      <label>
+        <span>Haircut and Beard - $90</span>
+        <input type="checkbox" name="service" value="Haircut&Beard+90" />
+      </label>
+      <br />
+      <label>
+        <span>Haircut and Color $120</span>
+        <input type="checkbox" name="service" value="Haircut&Color+120" />
+      </label>
+      <br />
+      <label>
+        <span>Color - $75</span>
+        <input type="checkbox" name="service" value="Color+75" />
+      </label>
+
+    </div>
     <br />
-    <br />
-    <input type="submit" value="Request booking" />
 
+    <div id="time-container" class="services-details">
+      <h2>Select day and time</h2>
+      <label>Select day:
+        <input type="date" name="date" />
+      </label>
+      <br />
+      <label>Select time:
+        <input
+          type="time"
+          name="time"
+          value="09:00:00"
+          min="09:00:00"
+          max="19:00:00"
+        />
+      </label>
+    </div>
+
+    <br />
+    <div id="contact-container" class="services-details">
+      <h2>Contact</h2>
+
+      <label>Phone number:
+        <input type="number" name="contact" />
+      </label>
+    </div>
+
+    <br />
+    <div id="message-container" class="services-details">
+      <h2>Message</h2>
+
+      <label>
+        <textarea name="message" rows="4">
+
+        </textarea>
+      </label>
+    
+    </div>
+    <br />
+    <button type="submit">Request booking</button>
   </form>
+
   {{#if errorMessage}}
     <p>{{errorMessage}}</p>
   {{/if}}
