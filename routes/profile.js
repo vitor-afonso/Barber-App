@@ -13,13 +13,13 @@ const { createUpdatedEvents, editServiceName } = require("../utils/app.utils");
 /******************** P R O F I L E *********************/
 
 router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
-  const myUserID = req.session.user._id;
+  const userID = req.session.user._id;
   let confirmedBookings = [];
   let pendingBookings = [];
   let previousBookings = [];
   let todaysDate = new Date();
 
-  User.findById(myUserID)
+  User.findById(userID)
     .populate("events")
     .then((userFromDB) => {
       userFromDB.events.forEach((event) => {

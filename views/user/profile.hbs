@@ -1,19 +1,17 @@
-<div id="profile-container">
+<div class="profile-container">
 
   <h1>Profile</h1>
 
   <section class="profile-top">
-    <div>
+    <div class="profile-info">
       <div><b>Username:</b> <span>{{user.username}}</span></div>
       <div><b>Email:</b> <span>{{user.email}}</span></div>
       <div><b>Password:</b> <span>********</span></div>
-      <a href="/profile/{{user._id}}/edit">Edit profile</a>
+      <button> <a href="/profile/{{user._id}}/edit">Edit profile</a></button>
     </div>
     
     <div>
       <img src="{{user.imageUrl}}" alt="profile image" width="150" />
-      <br>
-      
     </div>
   </section>
 
@@ -23,10 +21,11 @@
 
       {{#if pendingBookings}}
         <hr />
-        <h3>Pending bookings</h3>
-        <div>
+        <div class="pending-container">
+          <h3>Pending bookings</h3>
+        
           {{#each pendingBookings}}
-            <div>
+            <div class="pending-booking">
               <div><b>Service:</b> <span>{{this.service}}</span></div>
               <div>
                 <b>Date:</b>
@@ -45,17 +44,23 @@
       <hr />
 
       {{#if confirmedBookings}}
-        <h3>Confirmed bookings</h3>
-        <div>
+        <div class="confirmed-container">
+          <h3>Confirmed bookings</h3>
+
           {{#each confirmedBookings}}
-            <div>
-              <div><b>Service:</b> <span>{{service}}</span></div>
+            <div class="confirmed-booking">
+              <div>
+                <b>Service:</b> <span>{{service}}</span>
+              </div>
               <div>
                 <b>Date:</b>
                 <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
-              <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
-              <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
-              
+              <div> 
+                <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span>
+              </div>
+              <div> 
+                <b>Status:</b> <span>{{reqStatus}}</span>
+              </div>
               <div>
                 <a href="/profile/{{id}}/booking/edit">Edit</a>
                 <a href="/profile/{{id}}/booking/delete">Delete</a>
@@ -69,18 +74,17 @@
 
       {{#if previousBookings}}
 
+        <div class="past-container">
         <h3>Booking history</h3>
-        <div>
-          <div>
             {{#each previousBookings}}
-              <div><b>Service:</b> <span>{{service}}</span></div>
-              <div>
-                <b>Date:</b>
-                <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
-              <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
-              <br>
+              <div class="past-booking">
+                <div><b>Service:</b> <span>{{service}}</span></div>
+                <div>
+                  <b>Date:</b>
+                  <span>{{eventDay}}-{{eventMonth}}-{{eventYear}}</span></div>
+                <div> <b>Time:</b> <span>{{eventHour}}:{{eventMin}}H</span></div>
+              </div>
             {{/each}}
-          </div>
           <br />
         </div>
         <hr />

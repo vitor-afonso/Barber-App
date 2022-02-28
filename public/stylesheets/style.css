@@ -1,6 +1,5 @@
 :root{
-  font-size: 62,5%;
-  
+  font-size: 62,5%;  
 }
 * {
   box-sizing: border-box;
@@ -43,7 +42,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  outline: 1px solid red;
 }
 header {
   height: 50px;
@@ -81,17 +79,17 @@ footer .info-box {
 }
 /************************  INDEX  *************************/
 
-#index-body {
-  height: 100%;
+#index-container {
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#index-body #image-top div {
+#index-container #image-top div {
   height: 20%;
 }
-#index-body #image-top div img {
+#index-container #image-top div img {
   width: 100%;
   object-fit: cover;
 }
@@ -103,6 +101,8 @@ footer .info-box {
   align-items: center;
   justify-content: space-evenly;
   font-size: 3rem;
+  margin: 25px 0;
+
   /* outline: 1px solid red; */
 }
 
@@ -110,6 +110,7 @@ footer .info-box {
   width: 100%;
   border-top: 10px dashed #000;
   border-bottom: 10px dashed #000;
+  margin: 25px 0;
 }
 #services-list table td {
   font-size: 1.8rem;
@@ -132,8 +133,6 @@ footer .info-box {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  
-  outline: 1px solid red;
 }
 
 #login-container form,
@@ -205,7 +204,8 @@ footer .info-box {
 
 }
 #booking-container #time-container input,
-#booking-container #contact-container input {
+#booking-container #contact-container input,
+.profile-info input {
   width: 100%;
   height: 30px;
   border: 1px solid #CCC;
@@ -226,24 +226,89 @@ footer .info-box {
 /************************  PROFILE  *************************/
 
 
-#profile-container {
-  height: 100%;
+.profile-container,
+#edit-profile-container {
+  /* height: 100%; */
   width: 100%;
   display: flex;
   flex-direction: column;
-  
-  
+
 }
-#profile-container > h1 {
+.profile-container > h1,
+.profile-mid h3 {
   align-self: center;
 }
 .profile-top {
   width: 100%;
   display: flex;
-  outline: 1px solid red;
+  justify-content: center;
 }
-.profile-top > div {
+.profile-top .profile-info {
+  height: 100%;
   margin-right: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1.3rem;
+}
+.profile-mid {
+  height: 100%;
+}
+.profile-mid .pending-container,
+.profile-mid .confirmed-container,
+.profile-mid .past-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.profile-mid .pending-booking,
+.profile-mid .confirmed-booking,
+.profile-mid .past-booking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 15px;
+  border: 1px solid #CCC;
+  border-radius: 15px;
+  min-width: 200px;
+}
+
+.profile-mid .pending-booking > div,
+.profile-mid .confirmed-booking > div,
+.profile-mid .past-booking > div {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.profile-top .profile-info a {
+  font-size: 1.2rem;
+  /* width: 55%; */
+  padding: 5px 15px ;
+  cursor: pointer;
+  background-color: #EEE;
+  border-radius: 15px;
+  border: 1px solid #CCC;
+  color: #555;
+  align-self: center;
+}
+
+.profile-mid .pending-booking a,
+.profile-mid .confirmed-booking a {
+  font-size: 1.2rem;
+  width: 50%;
+  padding: 5px 0;
+  margin-right: 5px;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #555;
+  align-self: center;
+}
+
+#edit-profile-container {
+  align-items: center;
 }
 
 @media(max-width: 768px) {

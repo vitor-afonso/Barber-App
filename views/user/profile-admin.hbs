@@ -3,18 +3,15 @@
   <h1>Profile page</h1>
 
   <section class="profile-top">
-    <div>
-
+    <div class="profile-info">
       <div><b>Username:</b> <span>{{user.username}}</span></div>
       <div><b>Email:</b> <span>{{user.email}}</span></div>
       <div><b>Password:</b> <span>********</span></div>
-
+      <a href="/profile/{{user._id}}/edit">Edit profile</a>
     </div>
-
+    
     <div>
       <img src="{{user.imageUrl}}" alt="profile image" width="150" />
-      <br>
-      <a href="/profile/{{user._id}}/edit">Edit profile</a>
     </div>
   </section>
 
@@ -23,13 +20,11 @@
     <section class="profile-mid">
 
       {{#if pendingBookings}}
-
         <hr />
-        <h3>Pending bookings</h3>
-        
-        <div>
+        <div class="pending-container">
+          <h3>Pending bookings</h3>
           {{#each pendingBookings}}
-            <div>
+            <div class="pending-booking">
               <div><b>Name:</b> <span>{{username}}</span></div>
               <div><b>Service:</b> <span>{{service}}</span></div>
               <div>
@@ -59,10 +54,10 @@
       <hr />
 
       {{#if confirmedBookings}}
-        <h3>Confirmed bookings</h3>
-        <div>
+        <div class="confirmed-container">
+          <h3>Confirmed bookings</h3>
           {{#each confirmedBookings}}
-            <div>
+            <div class="confirmed-booking">
               <div><b>Name:</b> <span>{{username}}</span></div>
               <div><b>Service:</b> <span>{{service}}</span></div>
               <div>
