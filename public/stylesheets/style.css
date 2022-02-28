@@ -1,18 +1,28 @@
 :root{
   font-size: 62,5%;
+  
 }
 * {
   box-sizing: border-box;
 }
 /************************  GENERAL  *************************/
 
-button{
+button {
   padding: 10px 25px ;
+  cursor: pointer;
+  background-color: #EEE;
+  border-radius: 15px;
+  border: 1px solid #CCC;
+  color: #555;
+}
+button:hover {
+  box-shadow: 0 0 5px #CCC;
+  color: #000;
 }
 a {
   text-decoration: none;
-  color: #000;
   cursor: pointer;
+  color: #000;
 }
 
 
@@ -27,8 +37,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-
   outline: 1px solid red;
 }
 header {
@@ -42,18 +50,26 @@ header nav ul {
 }
 .nav-li {
   list-style: none;
+  
+}
+.nav-li:hover {
+  
+  border-bottom: 1px solid #CCC;
+  box-shadow: 0 5px 5px #CCC;
 }
 .nav-li-link {
   padding: 15px 20px;
+  
 }
 footer {
-  
+
   display: flex;
   justify-content: space-between;
   width: 100%;
   background-color: rgba(128, 128, 128, 0.1);
 }
 footer .info-box {
+  
   padding: 15px;
   outline: 1px solid red;
 }
@@ -87,12 +103,59 @@ footer .info-box {
 
 #services-list table {
   width: 100%;
-  border: 5px dashed #000;
+  border-top: 5px dashed #000;
+  border-bottom: 5px dashed #000;
 }
 #services-list table td {
   font-size: 1.8rem;
   padding: 15px;
 }
+
+#services-list button {
+  border-radius: 15px;
+  background-color: #FFF;
+}
+
+#login-container,
+#signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  
+  outline: 1px solid red;
+}
+
+#login-container form,
+#signup-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 15px;
+  border: 1px solid #CCC;
+  border-radius: 15px;
+}
+
+#login-container form label, 
+#signup-container form label {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+#login-container form input,
+#signup-container form input {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #CCC;
+  outline: none;
+  border-radius: 10px;
+
+}
+
+/************************  LOGIN  *************************/
+
+
 
 
 

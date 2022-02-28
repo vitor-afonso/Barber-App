@@ -1,8 +1,8 @@
 
 <div id="login-container">
+  
   <form action="/login" method="POST" id="login">
-
-    
+    <h2>Sign in</h2>
     <label>
       Email
       <input type="email" name="email" />
@@ -12,7 +12,7 @@
       <input type="password" name="password" />
     </label>
 
-    <button type="submit">Submit</button>
+    <button type="submit">Sign in</button>
   </form>
 
   {{#if errorMessage}}
