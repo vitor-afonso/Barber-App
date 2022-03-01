@@ -7,21 +7,22 @@
        
         {{#if pendingBookings}}   
             {{#each pendingBookings}} 
-                {{#each selectedServices}} 
+                <div id="edit-services-details">
+                    {{#each selectedServices}} 
 
-                        <label> {{shortServiceName}}
-                            <input type="checkbox" checked name="service" value="{{fullServiceName}}"/>
-                        </label> 
-                        <br>
-                {{/each}}
-                {{#each unselectedServices}} 
-                        <label> {{shortServiceName}}
-                            <input type="checkbox" name="service" value="{{fullServiceName}}"/>
-                            
-                        </label> 
-                        <br>
-                {{/each}}
-
+                            <label> <span>{{shortServiceName}}</span>
+                                <input type="checkbox" checked name="service" value="{{fullServiceName}}"/>
+                            </label> 
+                            <br>
+                    {{/each}}
+                    {{#each unselectedServices}} 
+                            <label> <span>{{shortServiceName}}</span>
+                                <input type="checkbox" name="service" value="{{fullServiceName}}"/>
+                                
+                            </label> 
+                            <br>
+                    {{/each}}
+                </div>
                 <br />
 
                 <h2>Select day and time</h2>

@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+
 :root{
   font-size: 62,5%;  
+
 }
 * {
   box-sizing: border-box;
@@ -18,10 +21,16 @@ button:hover {
   box-shadow: 0 0 5px #CCC;
   color: #000;
 }
+
 a {
   text-decoration: none;
   cursor: pointer;
+  color: #555;
+}
+a:hover {
   color: #000;
+  border-bottom: 1px solid #CCC;
+  box-shadow: 0 5px 5px #CCC;
 }
 
 /*Makes arrows on input number hidden*/
@@ -36,17 +45,19 @@ input[type=number]::-webkit-outer-spin-button {
 body {
   margin: 0 auto;
   font-size: 1,6%;
-
+  font-family: 'Oswald', sans-serif;
   width: 1140px;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  color: #FFF;
+  
 }
 header {
   height: 50px;
-  background-color: rgba(128, 128, 128, 0.1);
-  
+  background-color: #444;
+  color: #D96E1C;
 }
 header nav ul {
   display: flex;
@@ -54,24 +65,23 @@ header nav ul {
 }
 .nav-li {
   list-style: none;
-  
 }
  
-a:hover {
-  
-  border-bottom: 1px solid #CCC;
-  box-shadow: 0 5px 5px #CCC;
-}
+
+/* #index.container #services-list a:hover {
+  border-bottom: none;
+  box-shadow: none;
+} */
 .nav-li-link {
   padding: 15px 20px;
-  
+  color: #D96E1C;
 }
 footer {
-
+  color: #D96E1C;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  background-color: rgba(128, 128, 128, 0.1);
+  background-color: #444;
 }
 footer .info-box {
   
@@ -81,10 +91,12 @@ footer .info-box {
 /************************  INDEX  *************************/
 
 #index-container {
-  /* height: 100%; */
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-self: flex-start;
+  background-color: #34252f;
 }
 
 #index-container #image-top div {
@@ -95,15 +107,14 @@ footer .info-box {
   object-fit: cover;
 }
 
-#services-list {
+#services-list  {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   font-size: 3rem;
-  margin: 25px 0;
-
+  margin-top: 25px;
   /* outline: 1px solid red; */
 }
 
@@ -118,9 +129,20 @@ footer .info-box {
   padding: 15px;
 }
 
-#services-list button {
+#services-list a {
+  padding: 8px 25px ;
+  cursor: pointer;
+  background-color: #EEE;
   border-radius: 15px;
-  background-color: #FFF;
+  border: 1px solid #CCC;
+  color: #555;
+  font-size: 1rem;
+  text-align: center;
+  
+}
+
+#services-list a:hover {
+  color: #000;
 }
 
 
@@ -180,7 +202,8 @@ footer .info-box {
   flex: 1;
 } */
 
-.booking-container .services-details {
+.booking-container .services-details,
+#edit-services-details {
   
   width: 100%;
   border: 1px solid #CCC;
@@ -193,8 +216,18 @@ footer .info-box {
 .booking-container form label {
   margin-bottom: 5px;
 }
-.booking-container form input {
+.booking-container form input[type="date"],
+.booking-container form input[type="time"],
+.booking-container form input[type="number"],
+.profile-info input {
+  width: 100%;
   outline: none;
+  width: 100%;
+  height: 30px;
+  border: 1px solid #CCC;
+  outline: none;
+  border-radius: 10px;
+  padding: 5px;
 }
 .booking-container form textarea {
   outline: none;
@@ -204,18 +237,8 @@ footer .info-box {
   justify-content: space-between;
 
 }
-.booking-container #time-container input,
-.booking-container #contact-container input,
-.profile-info input {
-  width: 100%;
-  height: 30px;
-  border: 1px solid #CCC;
-  outline: none;
-  border-radius: 10px;
-  padding: 5px;
-}
 
-.booking-container #message-container textarea {
+.booking-container textarea {
   width: 100%;
   border: 1px solid #CCC;
   border-radius: 10px;
@@ -224,6 +247,9 @@ footer .info-box {
 } 
 
 /************************  EDIT BOOKING  *************************/
+/* #edit-services-details {
+
+} */
 
 .booking-container a,
 .booking-container button {
