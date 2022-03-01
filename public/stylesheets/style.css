@@ -12,14 +12,16 @@
 button {
   padding: 10px 25px ;
   cursor: pointer;
-  background-color: #EEE;
+  background-color: #DDD;
   border-radius: 15px;
   border: 1px solid #CCC;
   color: #555;
 }
 button:hover {
-  box-shadow: 0 0 5px #CCC;
-  color: #000;
+  
+  border: 1px solid #D96E1C;
+  background-color: #333;
+  color: #D96E1C;
 }
 
 a {
@@ -28,9 +30,7 @@ a {
   color: #555;
 }
 a:hover {
-  color: #000;
-  border-bottom: 1px solid #CCC;
-  box-shadow: 0 5px 5px #CCC;
+  color: #DDD;
 }
 
 /*Makes arrows on input number hidden*/
@@ -51,12 +51,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: #FFF;
+  color: #DDD;
   
 }
 header {
   height: 50px;
-  background-color: #444;
+  background-color: #333;
   color: #D96E1C;
 }
 header nav ul {
@@ -76,27 +76,29 @@ header nav ul {
   padding: 15px 20px;
   color: #D96E1C;
 }
+.nav-li-link:hover {
+  color: #DDD;
+}
 footer {
   color: #D96E1C;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  background-color: #444;
+  background-color: #333;
 }
 footer .info-box {
   
   padding: 15px;
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
 }
 /************************  INDEX  *************************/
 
 #index-container {
-  height: auto;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-self: flex-start;
-  background-color: #34252f;
+  background-color: #26030D;
 }
 
 #index-container #image-top div {
@@ -120,8 +122,8 @@ footer .info-box {
 
 #services-list table {
   width: 100%;
-  border-top: 10px dashed #000;
-  border-bottom: 10px dashed #000;
+  border-top: 10px dashed #DDD;
+  border-bottom: 10px dashed #DDD;
   margin: 25px 0;
 }
 #services-list table td {
@@ -132,7 +134,7 @@ footer .info-box {
 #services-list a {
   padding: 8px 25px ;
   cursor: pointer;
-  background-color: #EEE;
+  background-color: #DDD;
   border-radius: 15px;
   border: 1px solid #CCC;
   color: #555;
@@ -142,7 +144,9 @@ footer .info-box {
 }
 
 #services-list a:hover {
-  color: #000;
+  border: 1px solid #D96E1C;
+  background-color: #333;
+  color: #D96E1C;
 }
 
 
@@ -152,10 +156,12 @@ footer .info-box {
 #login-container,
 #signup-container,
 .booking-container {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  background-color: #26030D;
 }
 
 #login-container form,
@@ -190,23 +196,15 @@ footer .info-box {
 
 /************************  BOOKING  *************************/
 
-
-.booking-container form {
-  border: none;
-
-  /* flex-direction: row;
-  flex-wrap: wrap; */
+.booking-container  {
+  width: 100%;
+  background-color: #26030D;
+  
 }
-/* .booking-container #services-container, 
-.booking-container #time-container{
-  flex: 1;
-} */
-
 .booking-container .services-details,
 #edit-services-details {
-  
   width: 100%;
-  border: 1px solid #CCC;
+  border: 1px solid #DDD;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -224,7 +222,7 @@ footer .info-box {
   outline: none;
   width: 100%;
   height: 30px;
-  border: 1px solid #CCC;
+  border: 1px solid #DDD;
   outline: none;
   border-radius: 10px;
   padding: 5px;
@@ -240,23 +238,36 @@ footer .info-box {
 
 .booking-container textarea {
   width: 100%;
-  border: 1px solid #CCC;
+  border: 1px solid #DDD;
   border-radius: 10px;
   padding: 10px;
   resize: none;
 } 
+
+.booking-container a {
+  width: 100%;
+  background-color: #DDD;
+  border-radius: 13px;
+  border: 1px solid #DDD;
+  color: #555;
+  text-align: center;
+}
+.booking-container button:hover {
+  border: 1px solid #D96E1C;
+  background-color: #333;
+  color: #D96E1C;
+}
 
 /************************  EDIT BOOKING  *************************/
 /* #edit-services-details {
 
 } */
 
-.booking-container a,
 .booking-container button {
   width: 100%;
-  padding: 8px 25px ;
+  padding: 8px 0 ;
   cursor: pointer;
-  background-color: #EEE;
+  background-color: #DDD;
   border-radius: 15px;
   border: 1px solid #CCC;
   color: #555;
@@ -266,12 +277,23 @@ footer .info-box {
   /* align-self: center; */
 }
 .booking-container a {
+  padding: 3px 0 ;
   margin-top: 10px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+.booking-container a:hover {
+  
+  border: 1px solid #D96E1C;
+  background-color: #333;
+  color: #D96E1C;
+  
 }
 
 /************************  PROFILE  *************************/
-
+.profile-container {
+  background-color: #26030D;
+}
 
 .profile-container,
 #edit-profile-container {
@@ -318,7 +340,7 @@ footer .info-box {
   align-items: center;
   justify-content: space-around;
   padding: 15px;
-  border: 1px solid #CCC;
+  border: 1px solid #DDD;
   border-radius: 15px;
   min-width: 200px;
 }
@@ -331,16 +353,23 @@ footer .info-box {
 }
 
 .profile-top .profile-info a {
-  font-size: 1.2rem;
-  padding: 8px 25px ;
+  font-size: 1.1rem;
+  padding: 4px 25px ;
   cursor: pointer;
-  background-color: #EEE;
+  background-color: #DDD;
   border-radius: 15px;
-  border: 1px solid #CCC;
+  border: 1px solid #DDD;
   color: #555;
   font-size: 1rem;
   text-align: center;
-  /* align-self: center; */
+}
+
+.profile-info a:hover {
+  
+  border: 1px solid #D96E1C;
+  background-color: #333;
+  color: #D96E1C;
+  
 }
 
 .profile-mid .pending-booking a,
@@ -351,19 +380,21 @@ footer .info-box {
   margin-right: 5px;
   text-decoration: underline;
   cursor: pointer;
-  color: #555;
+  color: #999;
   align-self: center;
 }
 
 #edit-profile-container {
+  height: 100%;
+  background-color: #26030D;
   align-items: center;
 }
-#edit-profile-container button {
-  
+#edit-profile-container .profile-top {
+  padding: 15px;
+  width: auto;
+  border: 1px solid #DDD;
+  border-radius: 15px;
 }
-
-
-
 
 
 @media(max-width: 768px) {
