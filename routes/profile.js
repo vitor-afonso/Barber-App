@@ -9,6 +9,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 const isUser = require("../middleware/isUser");
 const fileUploader = require("../config/cloudinary.config");
 const { createUpdatedEvents, editServiceName } = require("../utils/app.utils");
+const { populate } = require("../models/Event.model");
 
 /******************** P R O F I L E *********************/
 
@@ -62,10 +63,10 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
 router.get("/profile/admin", isLoggedIn, (req, res, next) => {
   let emailConfirmation = req.query.message;
 
-  if(emailConfirmation) {
-    emailConfirmation = 'Email successfully sent.';
+  if (emailConfirmation) {
+    emailConfirmation = "Email successfully sent.";
   }
-  
+
   console.log(emailConfirmation);
   const adminUser = req.session.user;
   let confirmedBookings = [];
@@ -381,12 +382,30 @@ router.get("/profile/:id/booking/delete", isLoggedIn, (req, res, next) => {
   //console.log('deleting event id =>',eventID);
 
   Event.findByIdAndRemove(eventID)
-    .then((result) => {
-      if (user.role == "Admin") {
-        res.redirect("/profile/admin");
-      } else {
-        res.redirect("/profile");
-      }
+    .then(() => {
+      User.findById(user._id)
+        .then((userFromDB) => {
+          User.findByIdAndUpdate(user._id, {
+            events: userFromDB.events.filter((event) => {
+              return event._id.toString() != eventID;
+            })
+          }).then(() => {
+            console.log("event deleted from user.events!!!");
+          })
+          .catch(err => console.log('Something went wrong while deleting event from user.events.'));
+
+          if (user.role == "Admin") {
+            res.redirect("/profile/admin");
+          } else {
+            res.redirect("/profile");
+          }
+        })
+        .catch((err) =>
+          console.log(
+            "Something went wrong while trying to delete an event from =>",
+            err
+          )
+        );
     })
     .catch((err) =>
       console.log(
