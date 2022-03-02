@@ -24,7 +24,7 @@ require("./config")(app);
 const projectName = "project-2-barber-app";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
-app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
+app.locals.appName = `Ironhack Barber App`;
 
 // 👇 Start handling routes here
 const index = require("./routes");

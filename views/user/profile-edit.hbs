@@ -23,12 +23,14 @@
       <a href="/profile">Back</a>
       
     </form>
+    
     <div>
       <img src="{{user.imageUrl}}" alt="Profile image" width="150" />
       <br />
       <input type="text" name="existingImage" value="{{user.imageUrl}}" hidden>
       <input type="file" name="profile-image">
     </div>
+    
   </div>
   {{#if errorMessage}}
     <p>{{errorMessage}}</p>

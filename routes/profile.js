@@ -9,7 +9,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 const isUser = require("../middleware/isUser");
 const fileUploader = require("../config/cloudinary.config");
 const { createUpdatedEvents, editServiceName } = require("../utils/app.utils");
-const { populate } = require("../models/Event.model");
+
 
 /******************** P R O F I L E *********************/
 
@@ -126,7 +126,7 @@ router.get("/profile/:id/edit", isLoggedIn, (req, res, next) => {
   
   User.findById(userID)
     .then((userFromDB) => {
-      /* console.log("User from DB to edit =>", userFromDB); */
+      console.log("User from DB to edit =>", userFromDB);
 
       res.render("user/profile-edit", { user: userFromDB });
     })
@@ -144,7 +144,7 @@ router.post(
     const { username, email, password, existingImage } = req.body;
     let profileImage = "";
 
-    
+    console.log('existing url =>', existingImage);
     console.log('req file state =>', req.file);
 
     if (req.file !== undefined) {
