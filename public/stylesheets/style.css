@@ -286,10 +286,10 @@ footer .info-box {
 /************************  PROFILE  *************************/
 
 .profile-container {
+  /* height: 100%; */
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
   background-color: #C09F80;
 }
 
