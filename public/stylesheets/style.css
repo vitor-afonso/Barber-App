@@ -1,3 +1,11 @@
+/* #palettecolor {
+
+  titles: #76323F;
+  LIGTH bege: #D7CEC7;
+  footer: #565656
+  TAN: #C09F80
+  
+} */
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap");
 
 :root {
@@ -308,6 +316,9 @@ footer .info-box {
   flex-direction: column;
   background-color: #C09F80;
 }
+#admin-profile-container {
+  height: auto;
+}
 
 #edit-profile-container {
   width: 100%;
@@ -341,14 +352,6 @@ footer .info-box {
   align-items: center;
   font-size: 1.2rem;
 }
-
-/* #colors{
-
-  titles: #76323F;
-  LIGTH bege: #D7CEC7;
-  footer: #565656
-  TAN: #C09F80
-} */
 
 .profile-mid .pending-booking,
 .profile-mid .confirmed-booking,
