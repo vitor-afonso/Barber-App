@@ -86,8 +86,10 @@ footer {
   background-color: #D7CEC7;
 }
 footer .info-box {
+  height: 100%;
+  width: 100%;
   padding: 15px;
-  /* outline: 1px solid red; */
+  outline: 1px solid red;
 }
 /************************  INDEX  *************************/
 
@@ -289,7 +291,6 @@ footer .info-box {
 
 .profile-container,
 #edit-profile-container {
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -391,6 +392,24 @@ footer .info-box {
   border-radius: 15px;
 }
 
+#edit-profile-container form a {
+  
+
+
+
+}
+#edit-profile-container form a:hover {
+
+  background-color: #76323F;
+  color: #D7CEC7;
+}
+
+
+
+
+
+
+
 
 
 
@@ -454,6 +473,11 @@ footer .info-box {
   }
   #edit-booking-form {
     padding: 15px;
+  }
+  .profile-container .profile-top {
+    padding: 15px;
+    flex-direction: column-reverse;
+    
   }
   #edit-profile-container .profile-top {
     flex-direction: column-reverse;

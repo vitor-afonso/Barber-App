@@ -19,6 +19,7 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
   let pendingBookings = [];
   let previousBookings = [];
   let todaysDate = new Date();
+  
 
   User.findById(userID)
     .populate("events")
@@ -58,16 +59,16 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
     });
 });
 
-/******************** A D M I N *********************/
+/******************** P R O F I L E   A D M I N *********************/
 
 router.get("/profile/admin", isLoggedIn, (req, res, next) => {
   let emailConfirmation = req.query.message;
 
   if (emailConfirmation) {
     emailConfirmation = "Email successfully sent.";
+    //console.log('email confirmation message =>',emailConfirmation);
   }
 
-  console.log(emailConfirmation);
   const adminUser = req.session.user;
   let confirmedBookings = [];
   let pendingBookings = [];
@@ -116,10 +117,10 @@ router.get("/profile/admin", isLoggedIn, (req, res, next) => {
 
 router.get("/profile/:id/edit", isLoggedIn, (req, res, next) => {
   const userID = req.params.id;
-
+  
   User.findById(userID)
     .then((userFromDB) => {
-      //console.log("User from DB to edit =>", userFromDB);
+      /* console.log("User from DB to edit =>", userFromDB); */
 
       res.render("user/profile-edit", { user: userFromDB });
     })
@@ -137,21 +138,16 @@ router.post(
     const { username, email, password, existingImage } = req.body;
     let profileImage = "";
 
-    //
-    //  Find out why cant i update admin profile pic
-    //
+    
+    console.log('req file state =>', req.file);
 
     if (req.file !== undefined) {
       profileImage = req.file.path;
-      console.log("new req file path =>", profileImage);
+      console.log("to update image with new req file path =>", profileImage);
     } else {
       profileImage = existingImage;
-      console.log("old req file path =>", profileImage);
+      console.log("to update image with old req file path =>", profileImage);
     }
-
-    //
-    //
-    //
 
     User.findById(userID)
       .then((userFromDB) => {
@@ -174,17 +170,13 @@ router.post(
             .then((hashedPassword) => {
               // Update user and save it in the database
               User.findByIdAndUpdate(
-                userID,
-                {
-                  username: username,
-                  email: email,
-                  password: hashedPassword,
-                  imageUrl: profileImage.path,
-                },
+                userID, {  username: username, email: email, password: hashedPassword, imageUrl: profileImage },
                 { new: true }
               )
                 .then((updatedUser) => {
-                  console.log("Updated user with new password =>", updatedUser);
+
+                  req.session.user.imageUrl = profileImage;
+                  //console.log("Updated user with new password =>", updatedUser);
                   res.redirect("/profile");
                 })
                 .catch((err) =>
@@ -201,18 +193,12 @@ router.post(
             { new: true }
           )
             .then((updatedUser) => {
-              console.log(
-                "Updated user without changing password =>",
-                updatedUser
-              );
+              /* console.log("Updated user without changing password =>",  updatedUser); */
 
               req.session.user.imageUrl = profileImage;
 
-              if (req.session.user.role === "User") {
-                res.redirect("/profile");
-              } else {
-                res.redirect("/profile/admin");
-              }
+              res.redirect("/profile");
+
             })
             .catch((err) =>
               console.log(
@@ -340,13 +326,6 @@ router.post("/profile/:id/booking/edit", isLoggedIn, (req, res, next) => {
   let newStartDate = new Date(`${date}T${time}Z`);
   let newEndDate;
   let newReqStatus = "Pending";
-
-  /* if(adminReqStatus) {
-    newReqStatus = 'Confirmed';
-  }
- */
-  /* console.log('post req. params =>',evendID);
-  console.log('post req. body =>',req.body); */
 
   newEndDate = new Date(newStartDate.getTime() + minutes * 60000);
 
