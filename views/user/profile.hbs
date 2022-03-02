@@ -89,10 +89,17 @@
         </div>
         <hr />
       {{/if}}
+
     </section>
   {{/if}}
 
-  {{#if deleteConfirmation}}
-    <p>{{deleteConfirmation}}</p>
-  {{/if}}
+  <div id="profile-messages">
+
+    {{#if deleteConfirmation}}
+      <p>{{deleteConfirmation}}</p>
+    {{/if}}
+    {{#if bookingConfirmation}}
+      <p>{{bookingConfirmation}}</p>
+    {{/if}}
+  </div>
 </div>

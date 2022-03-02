@@ -15,6 +15,11 @@ const { populate } = require("../models/Event.model");
 
 router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
   const userID = req.session.user._id;
+  let bookingConfirmation = req.query.message;
+  let message;
+  if (bookingConfirmation) {
+    message = "Booking request successfully sent.";
+  }
   let confirmedBookings = [];
   let pendingBookings = [];
   let previousBookings = [];
@@ -52,6 +57,7 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
         pendingBookings,
         confirmedBookings,
         previousBookings,
+        bookingConfirmation: message
       });
     })
     .catch((err) => {
@@ -459,9 +465,8 @@ router.post("/send-email", (req, res, next) => {
       console.log("email info =>", info);
       //allows me to use redirect and have the message to display
       res.redirect("profile/admin?message=email+sent");
-      //res.render("user/profile-admin", { user: req.session.user, message: "Email successfully sent." });
+     
     })
-    //.then(info => res.render('index', {email, subject, message, info}))
     .catch((err) =>
       console.log("Something went wrong while trying to send email =>", err)
     );

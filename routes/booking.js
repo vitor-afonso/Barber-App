@@ -61,10 +61,9 @@ router.post("/booking", (req, res, next) => {
       });
     })
     .then(() => {
-      res.render("index", {
-        bookingConfirmation: "Booking request successfully sent.",
-        user: author,
-      });
+
+      res.redirect("profile/?message=booking+required");
+      
     })
     .catch((err) =>
       console.log("Something went wrong while creating event =>", err)

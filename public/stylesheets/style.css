@@ -28,7 +28,7 @@ a {
   color: #000;
 }
 a:hover {
-  color: #ddd;
+  color: #565656;
 }
 
 h1, h2, h3, h4, h5 {
@@ -286,10 +286,13 @@ footer .info-box {
 /************************  PROFILE  *************************/
 
 .profile-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   background-color: #C09F80;
 }
 
-.profile-container,
 #edit-profile-container {
   width: 100%;
   display: flex;
@@ -305,15 +308,14 @@ footer .info-box {
   justify-content: center;
 }
 .profile-top .profile-info {
-  height: 100%;
   margin-right: 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   font-size: 1.3rem;
 }
-.profile-mid {
-  height: 100%;
+.profile-container #profile-messages {
+  align-self: center;
 }
 .profile-mid .pending-container,
 .profile-mid .confirmed-container,
@@ -331,6 +333,7 @@ footer .info-box {
   footer: #565656
   TAN: #C09F80
 } */
+
 .profile-mid .pending-booking,
 .profile-mid .confirmed-booking,
 .profile-mid .past-booking {
@@ -380,10 +383,16 @@ footer .info-box {
   align-self: center;
 }
 
+
+
+
+
+
 #edit-profile-container {
   height: 100%;
   background-color: #C09F80;
   align-items: center;
+  padding-bottom: 30px;
 }
 #edit-profile-container .profile-top {
   padding: 15px;
@@ -393,11 +402,9 @@ footer .info-box {
 }
 
 #edit-profile-container form a {
-  
-
-
-
+  margin-top: 5px;
 }
+
 #edit-profile-container form a:hover {
 
   background-color: #76323F;
@@ -474,10 +481,10 @@ footer .info-box {
   #edit-booking-form {
     padding: 15px;
   }
+
   .profile-container .profile-top {
     padding: 15px;
     flex-direction: column-reverse;
-    
   }
   #edit-profile-container .profile-top {
     flex-direction: column-reverse;
