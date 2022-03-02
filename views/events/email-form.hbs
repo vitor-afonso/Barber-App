@@ -1,11 +1,10 @@
-<div>
+<div id="email-container">
   {{#if pendingBookings}}
 
     {{#each pendingBookings}}
-      <hr />
-      <h3>Booking Request</h3>
 
-      <div>
+      <div id="email-booking-info">
+        <h3>Booking Request</h3>
         <div>
 
           <div><b>Name:</b> <span>{{username}}</span></div>
@@ -24,30 +23,32 @@
           <div> <b>Status:</b> <span>{{reqStatus}}</span></div>
 
         </div>
-        <br />
+        
       </div>
-      <hr />
+      <br />
+      <div id="email-form">
+        <h2>Reply booking request</h2>
+        <form action="/send-email" method="post">
 
-      <h1>Reply booking request</h1>
-      <form action="/send-email" method="post">
+          <label>Email
+            <input type="email" name="email" value="{{email}}" />
+          </label>
 
-        <label>Email
-          <input type="email" name="email" value="{{email}}" />
-        </label>
+          <label>Subject
+            <input type="text" name="subject" value="Booking request"/>
+          </label>
 
-        <label>Subject
-          <input type="text" name="subject" value="Booking request"/>
-        </label>
+          <label>Message
+            <textarea type="text" name="message"></textarea>
+          </label>
+          <br>
+          <button type="submit">Submit</button> <br>
+          <button>
+            <a href="/profile/admin">Cancel</a>
+          </button>
 
-        <label>Message
-          <textarea type="text" name="message"></textarea>
-        </label>
-
-        <button type="submit">Submit</button>
-
-        <a href="/profile/admin">Cancel</a>
-
-      </form>
+        </form>
+      </div>
     {{/each}}
   {{/if}}
 </div>

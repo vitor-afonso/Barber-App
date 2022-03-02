@@ -11,26 +11,29 @@
 button {
   padding: 10px 25px;
   cursor: pointer;
-  background-color: #ddd;
+  background-color: #D7CEC7;
   border-radius: 15px;
-  border: 1px solid #ccc;
-  color: #555;
+  border: 1px solid #000;
+  color: #000;
 }
 button:hover {
-  border: 1px solid #d96e1c;
-  background-color: #333;
-  color: #d96e1c;
+  border: 1px solid #76323F;
+  background-color: #76323F;
+  color: #D7CEC7;
 }
 
 a {
   text-decoration: none;
   cursor: pointer;
-  color: #555;
+  color: #000;
 }
 a:hover {
   color: #ddd;
 }
 
+h1, h2, h3, h4, h5 {
+  color: #76323F;
+}
 /*Makes arrows on input number hidden*/
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -44,43 +47,43 @@ body {
   margin: 0 auto;
   font-size: 1, 6%;
   font-family: "Oswald", sans-serif;
-  width: 1140px;
+  max-width: 1140px;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: #ddd;
+  color: #000;
+  background-color: #FFF;
 }
 header {
-  height: 50px;
-  background-color: #333;
-  color: #d96e1c;
-}
-header nav ul {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
+  background-color: #D7CEC7;
+  color: #000;
+}
+header nav ul {
+  padding-left: 0;
+  display: flex;
+
 }
 .nav-li {
   list-style: none;
 }
-
-/* #index.container #services-list a:hover {
-  border-bottom: none;
-  box-shadow: none;
-} */
 .nav-li-link {
-  padding: 15px 20px;
-  color: #d96e1c;
+  padding: 10px 15px;
+  color: #76323F;
+  text-transform: uppercase;
 }
 .nav-li-link:hover {
-  color: #ddd;
+  color: #000;
 }
 footer {
-  color: #d96e1c;
+  color: #000;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  background-color: #333;
+  background-color: #D7CEC7;
 }
 footer .info-box {
   padding: 15px;
@@ -93,7 +96,7 @@ footer .info-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #26030d;
+  background-color: #C09F80;
 }
 
 #index-container #image-top div {
@@ -115,12 +118,17 @@ footer .info-box {
   /* outline: 1px solid red; */
 }
 
+#services-list h3 {
+  margin: 15px 0;
+}
+
 #services-list table {
   width: 100%;
-  border-top: 10px dashed #ddd;
-  border-bottom: 10px dashed #ddd;
+  border-top: 10px dashed #76323F;
+  border-bottom: 10px dashed #76323F;
   margin: 25px 0;
 }
+
 #services-list table td {
   font-size: 1.8rem;
   padding: 15px;
@@ -129,18 +137,18 @@ footer .info-box {
 #services-list a {
   padding: 8px 25px;
   cursor: pointer;
-  background-color: #ddd;
+  background-color: #D7CEC7;
   border-radius: 15px;
-  border: 1px solid #ccc;
-  color: #555;
+  border: 1px solid #565656;
+  color: #000;
   font-size: 1rem;
   text-align: center;
 }
 
 #services-list a:hover {
-  border: 1px solid #d96e1c;
-  background-color: #333;
-  color: #d96e1c;
+  border: 1px solid #000;
+  background-color: #76323F;
+  color: #D7CEC7;
 }
 
 /************************  LOGIN  *************************/
@@ -152,18 +160,18 @@ footer .info-box {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: #26030d;
+  background-color: #C09F80;
 }
 
 #login-container form,
-#signup-container form,
-.booking-container form {
+#signup-container form {
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   padding: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid #76323F;
   border-radius: 15px;
 }
 
@@ -178,7 +186,7 @@ footer .info-box {
 #signup-container form input {
   width: 100%;
   height: 30px;
-  border: 1px solid #ccc;
+  border: 1px solid #76323F;
   outline: none;
   border-radius: 10px;
 }
@@ -191,13 +199,22 @@ footer .info-box {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: #26030D;
+  background-color: #C09F80;
+}
+.booking-container form {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 5px #76323f;
 }
 
 .booking-container .services-details,
 #edit-services-details {
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid #76323F;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -210,12 +227,14 @@ footer .info-box {
 .booking-container form input[type="date"],
 .booking-container form input[type="time"],
 .booking-container form input[type="number"],
-.profile-info input {
+.profile-info input,
+#email-container form input[type="email"],
+#email-container form input[type="text"]  {
   width: 100%;
   outline: none;
   width: 100%;
   height: 30px;
-  border: 1px solid #ddd;
+  border: 1px solid #76323F;
   outline: none;
   border-radius: 10px;
   padding: 5px;
@@ -228,59 +247,44 @@ footer .info-box {
   justify-content: space-between;
 }
 
-.booking-container textarea {
+.booking-container textarea,
+#email-container form textarea  {
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid #76323F;
   border-radius: 10px;
   padding: 10px;
   resize: none;
 }
-
-.booking-container a {
+.booking-container button {
   width: 100%;
-  background-color: #ddd;
-  border-radius: 13px;
-  border: 1px solid #ddd;
-  color: #555;
-  text-align: center;
 }
+
 .booking-container button:hover {
-  border: 1px solid #d96e1c;
-  background-color: #333;
-  color: #d96e1c;
+  border: 1px solid #000;
+  background-color: #76323F;
+  color: #D7CEC7;
 }
 
 /************************  EDIT BOOKING  *************************/
 
-
-.booking-container button {
-  width: 100%;
-  padding: 8px 0;
-  cursor: pointer;
-  background-color: #ddd;
-  border-radius: 15px;
-  border: 1px solid #ccc;
-  color: #555;
-  font-size: 1rem;
-  text-align: center;
-
-  /* align-self: center; */
+#edit-booking-form {
+  padding: 50px;
 }
-.booking-container a {
-  padding: 3px 0;
-  margin-top: 10px;
-  font-size: 1.1rem;
-  color: #555;
+#edit-booking-form label {
+  display: flex;
+  justify-content: space-between;
 }
+
 .booking-container a:hover {
-  border: 1px solid #d96e1c;
-  background-color: #333;
-  color: #d96e1c;
+  border: 1px solid #000;
+  background-color: #76323F;
+  color: #D7CEC7;
 }
 
 /************************  PROFILE  *************************/
+
 .profile-container {
-  background-color: #26030d;
+  background-color: #C09F80;
 }
 
 .profile-container,
@@ -319,6 +323,13 @@ footer .info-box {
   font-size: 1.2rem;
 }
 
+/* #colors{
+
+  titles: #76323F;
+  LIGTH bege: #D7CEC7;
+  footer: #565656
+  TAN: #C09F80
+} */
 .profile-mid .pending-booking,
 .profile-mid .confirmed-booking,
 .profile-mid .past-booking {
@@ -327,7 +338,7 @@ footer .info-box {
   align-items: center;
   justify-content: space-around;
   padding: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid #76323F;
   border-radius: 15px;
   min-width: 200px;
 }
@@ -340,21 +351,20 @@ footer .info-box {
 }
 
 .profile-top .profile-info a {
-  font-size: 1.1rem;
   padding: 4px 25px;
   cursor: pointer;
-  background-color: #ddd;
+  background-color: #D7CEC7;
   border-radius: 15px;
-  border: 1px solid #ddd;
-  color: #555;
-  font-size: 1rem;
+  border: 1px solid #000;
+  color: #000;
+  font-size: 0.9rem;
   text-align: center;
 }
 
 .profile-info a:hover {
-  border: 1px solid #d96e1c;
-  background-color: #333;
-  color: #d96e1c;
+  border: 1px solid #000;
+  background-color: #76323F;
+  color: #D7CEC7;
 }
 
 .profile-mid .pending-booking a,
@@ -365,25 +375,89 @@ footer .info-box {
   margin-right: 5px;
   text-decoration: underline;
   cursor: pointer;
-  color: #999;
+  color: #76323F;
   align-self: center;
 }
 
 #edit-profile-container {
   height: 100%;
-  background-color: #26030d;
+  background-color: #C09F80;
   align-items: center;
 }
 #edit-profile-container .profile-top {
   padding: 15px;
   width: auto;
-  border: 1px solid #ddd;
+  border: 1px solid #76323F;
   border-radius: 15px;
 }
 
+
+
+
+
+
+
+
+
+
+#email-container {
+  height: 100%;
+  background-color: #C09F80;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#email-booking-info, 
+#email-form {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #76323F;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+#email-container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+#email-container form button:hover {
+  color: #D7CEC7;
+}
+
+
+
+
+
+
 @media (max-width: 768px) {
-  header nav ul {
+  header {
     justify-content: center;
+  }
+  .booking-container form,
+  #email-booking-info {
+    width: 300px;
+  }
+  #edit-booking-form {
+    padding: 15px;
+  }
+  #edit-profile-container .profile-top {
+    flex-direction: column-reverse;
+  }
+  #email-container {
+    padding: 30px 0;
+  }
+  #email-form {
+    width: 300px;
+   
+    /* padding: 15px; */
   }
   footer {
     flex-direction: column;
