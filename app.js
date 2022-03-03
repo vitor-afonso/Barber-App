@@ -16,14 +16,20 @@ const hbs = require("hbs");
 
 const app = express();
 
-
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
 const projectName = "project-2-barber-app";
-const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
+const capitalized = (string) =>
+  string[0].toUpperCase() + string.slice(1).toLowerCase();
 
 app.locals.appName = `Ironhack Barber App`;
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.session.user ? req.session.user : false;
+  console.log("res.locals.currentUser", res.locals.currentUser);
+  next();
+});
 
 app.locals.API_KEY = process.env.MAPS_KEY;
 
