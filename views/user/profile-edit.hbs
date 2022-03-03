@@ -22,14 +22,14 @@
       <button type="submit">Update</button>
       <a href="/profile">Back</a>
       
-    </form>
-    
     <div>
       <img src="{{user.imageUrl}}" alt="Profile image" width="150" />
       <br />
       <input type="text" name="existingImage" value="{{user.imageUrl}}" hidden>
       <input type="file" name="profile-image">
     </div>
+    </form>
+    
     
   </div>
   {{#if errorMessage}}

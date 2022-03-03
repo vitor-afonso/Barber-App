@@ -10,7 +10,6 @@ const isUser = require("../middleware/isUser");
 const fileUploader = require("../config/cloudinary.config");
 const { createUpdatedEvents, editServiceName } = require("../utils/app.utils");
 
-
 /******************** P R O F I L E *********************/
 
 router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
@@ -24,7 +23,6 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
   let pendingBookings = [];
   let previousBookings = [];
   let todaysDate = new Date();
-  
 
   User.findById(userID)
     .populate("events")
@@ -57,7 +55,7 @@ router.get("/profile", isLoggedIn, isUser, (req, res, next) => {
         pendingBookings,
         confirmedBookings,
         previousBookings,
-        bookingConfirmation: message
+        bookingConfirmation: message,
       });
     })
     .catch((err) => {
@@ -123,7 +121,7 @@ router.get("/profile/admin", isLoggedIn, (req, res, next) => {
 
 router.get("/profile/:id/edit", isLoggedIn, (req, res, next) => {
   const userID = req.params.id;
-  
+
   User.findById(userID)
     .then((userFromDB) => {
       console.log("User from DB to edit =>", userFromDB);
@@ -144,8 +142,9 @@ router.post(
     const { username, email, password, existingImage } = req.body;
     let profileImage = "";
 
-    console.log('existing url =>', existingImage);
-    console.log('req file state =>', req.file);
+    console.log("existing fields =>", req.body);
+    console.log("existing url =>", existingImage);
+    console.log("req file state =>", req.file);
 
     if (req.file !== undefined) {
       profileImage = req.file.path;
@@ -176,11 +175,16 @@ router.post(
             .then((hashedPassword) => {
               // Update user and save it in the database
               User.findByIdAndUpdate(
-                userID, {  username: username, email: email, password: hashedPassword, imageUrl: profileImage },
+                userID,
+                {
+                  username: username,
+                  email: email,
+                  password: hashedPassword,
+                  imageUrl: profileImage,
+                },
                 { new: true }
               )
                 .then((updatedUser) => {
-
                   req.session.user.imageUrl = profileImage;
                   //console.log("Updated user with new password =>", updatedUser);
                   res.redirect("/profile");
@@ -204,7 +208,6 @@ router.post(
               req.session.user.imageUrl = profileImage;
 
               res.redirect("/profile");
-
             })
             .catch((err) =>
               console.log(
@@ -373,11 +376,16 @@ router.get("/profile/:id/booking/delete", isLoggedIn, (req, res, next) => {
           User.findByIdAndUpdate(user._id, {
             events: userFromDB.events.filter((event) => {
               return event._id.toString() != eventID;
-            })
-          }).then(() => {
-            console.log("event deleted from user.events!!!");
+            }),
           })
-          .catch(err => console.log('Something went wrong while deleting event from user.events.'));
+            .then(() => {
+              console.log("event deleted from user.events!!!");
+            })
+            .catch((err) =>
+              console.log(
+                "Something went wrong while deleting event from user.events."
+              )
+            );
 
           if (user.role == "Admin") {
             res.redirect("/profile/admin");
@@ -465,7 +473,6 @@ router.post("/send-email", (req, res, next) => {
       console.log("email info =>", info);
       //allows me to use redirect and have the message to display
       res.redirect("profile/admin?message=email+sent");
-     
     })
     .catch((err) =>
       console.log("Something went wrong while trying to send email =>", err)
