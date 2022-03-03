@@ -26,6 +26,8 @@ const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowe
 
 app.locals.appName = `Ironhack Barber App`;
 
+/* app.locals.mapsKey = process.env.MAPS_KEY; */
+
 // 👇 Start handling routes here
 const index = require("./routes");
 app.use("/", index);
