@@ -305,10 +305,10 @@ footer .info-box #map {
 #edit-booking-form {
   padding: 50px;
 }
-#edit-booking-form label {
+/* #edit-booking-form label {
   display: flex;
   flex-direction: column;
-}
+} */
 
 .booking-container a:hover {
   border: 1px solid #000;
@@ -446,6 +446,7 @@ footer .info-box #map {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 15px 0;
 }
 
 #email-booking-info, 

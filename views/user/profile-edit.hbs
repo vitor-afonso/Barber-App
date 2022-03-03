@@ -2,6 +2,12 @@
   <h2>Edit profile</h2>
   <div class="profile-top">
     <form class="profile-info" action="/profile/{{user._id}}/edit" method="post" enctype="multipart/form-data">
+      <div>
+        <img src="{{user.imageUrl}}" alt="Profile image" width="150" />
+        <br />
+        <input type="text" name="existingImage" value="{{user.imageUrl}}" hidden>
+        <input type="file" name="profile-image">
+      </div>
       
       <label>
         Name:
@@ -22,12 +28,6 @@
       <button type="submit">Update</button>
       <a href="/profile">Back</a>
       
-    <div>
-      <img src="{{user.imageUrl}}" alt="Profile image" width="150" />
-      <br />
-      <input type="text" name="existingImage" value="{{user.imageUrl}}" hidden>
-      <input type="file" name="profile-image">
-    </div>
     </form>
     
     
