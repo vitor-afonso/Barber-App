@@ -106,7 +106,16 @@ footer .info-box {
   height: 100%;
   width: 100%;
   padding: 15px;
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
+}
+footer #map-container {
+  border-left: 1px solid #76323F;
+  border-right: 1px solid #76323F;
+}
+footer .info-box #map {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
 }
 /************************  INDEX  *************************/
 
@@ -516,6 +525,13 @@ footer .info-box {
     align-items: center;
   }
   footer .info-box {
+    min-height: 250px;
     text-align: center;
+  }
+  footer #map-container {
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #76323F;
+    border-bottom: 1px solid #76323F;
   }
 }
