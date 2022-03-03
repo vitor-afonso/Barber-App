@@ -17,7 +17,6 @@ const hbs = require("hbs");
 const app = express();
 
 
-
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
@@ -25,8 +24,7 @@ const projectName = "project-2-barber-app";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
 app.locals.appName = `Ironhack Barber App`;
-
-app.locals.mapsKey = process.env.MAPS_KEY;
+app.locals.mapKey = process.env.MAPS_KEY;
 
 // 👇 Start handling routes here
 const index = require("./routes");
