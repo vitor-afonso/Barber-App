@@ -529,6 +529,7 @@ footer .info-box #map {
     text-align: center;
   }
   footer #map-container {
+    padding: 0px;
     border-left: none;
     border-right: none;
     border-top: 1px solid #76323F;
