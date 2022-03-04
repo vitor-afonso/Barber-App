@@ -6,7 +6,7 @@ const Event = require("../models/Event.model");
 
 router.get("/", (req, res, next) => {
   const user = req.session.user;
-  console.log("-->", user);
+  
   res.render("index", { user });
 });
 

@@ -142,10 +142,6 @@ router.post(
     const { username, email, password, existingImage } = req.body;
     let profileImage = "";
 
-    console.log("existing fields =>", req.body);
-    console.log("existing url =>", existingImage);
-    console.log("req file state =>", req.file);
-
     if (req.file !== undefined) {
       profileImage = req.file.path;
       console.log("to update image with new req file path =>", profileImage);

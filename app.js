@@ -27,7 +27,7 @@ app.locals.appName = `Ironhack Barber App`;
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.session.user ? req.session.user : false;
-  console.log("res.locals.currentUser", res.locals.currentUser);
+  // console.log("res.locals.currentUser", res.locals.currentUser);
   next();
 });
 
