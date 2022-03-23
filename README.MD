@@ -1,5 +1,5 @@
 
-# IronHack Barber App :barber:
+# Ironhack Barber App :barber:
 
 Barber App is my seccond Ironhack Web Dev bootcamp project. With this project i am supposed to make use of what i learned about front end & back end.   
 
